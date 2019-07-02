@@ -1,5 +1,5 @@
 ﻿using System;
-using AnagramSolver;
+using Implementation.AnagramSolver;
 
 namespace MainApp
 {
@@ -8,11 +8,8 @@ namespace MainApp
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            var object1 = new ReadDictionary();
-
-            object1.ReadFile();
-
-
+            var object1 = new AnagramSolver();
+            object1.FindAnagram();
         }
     }
 }

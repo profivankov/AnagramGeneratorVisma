@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include=".\Implementation.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Interfaces.AnagramSolver\Interfaces.AnagramSolver.csproj" />
   </ItemGroup>
 
