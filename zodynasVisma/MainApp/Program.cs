@@ -7,9 +7,10 @@ namespace MainApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Enter words:");
+            var myWords = Console.ReadLine();
             var object1 = new AnagramSolver();
-            object1.FindAnagram();
+            object1.GetAnagrams(myWords);
         }
     }
 }

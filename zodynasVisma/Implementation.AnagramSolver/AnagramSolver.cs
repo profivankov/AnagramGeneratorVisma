@@ -3,10 +3,11 @@ using System.Text;
 using System.Linq;
 using System.Collections.Generic;
 using System.Collections;
+using Interfaces.AnagramSolver;
 
 namespace Implementation.AnagramSolver
 {
-    public class AnagramSolver
+    public class AnagramSolver : IAnagramSolver
     {
         //static string SortForHash(string word)
         //{
@@ -27,10 +28,9 @@ namespace Implementation.AnagramSolver
         //}
 
 
-        public void FindAnagram()
+        public IList<string> GetAnagrams(string myWords)  // split input with myWord.Split(" ") and store them in string array and then check anagrams for each word
         {
-            var input = Console.ReadLine();
-
+            var input = myWords;
             var dict = new FileWordRepository();
             Dictionary<string, List<string>> wordList = dict.GetDictionary();
 
@@ -45,9 +45,16 @@ namespace Implementation.AnagramSolver
                 //    value.ForEach(Console.WriteLine);
                 //}
                 //Console.WriteLine();
+                return wordList[input];
             }
-                    
-
+            else
+                throw new Exception(String.Format("No such word {0}", myWords));   // nzn ar yra alternatyva?
+            //else
+            //{
+            //    Console.WriteLine("Entry wasn't found");
+            //    return 0; // return smth if fail
+            //}
+           
 
 
             //List<string> sortedList = wordList[i];

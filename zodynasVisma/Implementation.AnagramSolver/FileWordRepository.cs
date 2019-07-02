@@ -17,6 +17,7 @@ namespace Implementation.AnagramSolver
             var file = new StreamReader(@"C:\Users\mantrimas\source\repos\zodynasVisma\zodynasVisma\test.txt");
             var line = "";
             string temp = "";
+            string temp2 = "";
             while (( line = file.ReadLine()) != null)
             {
 
@@ -25,35 +26,49 @@ namespace Implementation.AnagramSolver
                 var sortedDelimitedByTabTwo = String.Concat(delimitedByTab[2].OrderBy(c => c));
 
 
-
                 if (sortedDelimitedByTabOne != temp) 
                 {
                     /* temp = delimitedByTab[0].OrderBy(x => x).ToString();*/
                     temp = String.Concat(delimitedByTab[0].OrderBy(c => c));
 
-                    if (!wordList.ContainsKey(temp))
+                    if (!wordList.ContainsKey(temp)) // if no such key add key
                     {
-                        wordList.Add(temp, new List<string>()); // if temp is diff from dict. key, add new key and create new list
+                        wordList.Add(temp, new List<string>());
+                        wordList[temp].Add(delimitedByTab[0]);
                     }
-                    wordList[temp].Add(delimitedByTab[0]);
-                    //wordList[temp].Add(delimitedByTab[2]); // nereikia prideti nes nesutampa su temp
-                }
-                else if (sortedDelimitedByTabOne == temp)
-                {
+                    else
+                        wordList[temp].Add(delimitedByTab[0]); // add to list
 
-                    if(sortedDelimitedByTabTwo != temp)
+                    // check second entry key and add to list
+                    temp2 = String.Concat(delimitedByTab[2].OrderBy(c => c));
+                    if (!wordList.ContainsKey(temp2))
                     {
-                        temp = String.Concat(delimitedByTab[2].OrderBy(c => c));
-                        if (!wordList.ContainsKey(temp))
-                        {
-                            wordList.Add(temp, new List<string>()); // if temp is diff from dict. key, add new key and create new list
-                        }
-                        wordList[temp].Add(delimitedByTab[2]);
+                        wordList.Add(temp2, new List<string>());
+                        wordList[temp2].Add(delimitedByTab[2]);
                     }
+                    else
+                        wordList[temp2].Add(delimitedByTab[2]);
+
+
+
                 }
+                //else if (sortedDelimitedByTabOne == temp)
+                //{
+
+                //    if (sortedDelimitedByTabTwo != temp)
+                //    {
+                //        temp = String.Concat(delimitedByTab[2].OrderBy(c => c));
+                //        if (!wordList.ContainsKey(temp))
+                //        {
+                //            wordList.Add(temp, new List<string>()); // if temp is diff from dict. key, add new key and create new list
+                //        }
+                //        else
+                //            wordList[temp].Add(delimitedByTab[2]);
+                //    }
+                //}
                 //else
                 //    wordList[temp].Add(delimitedByTab[0]);
-                    
+
                 //    {
                 //        wordList[delimitedByTab[1]].Add(delimitedByTab[0], delimitedByTab[2]); // store in seperate dictionary kur vardininkas yra key
 
