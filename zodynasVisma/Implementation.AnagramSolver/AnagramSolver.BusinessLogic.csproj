@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Interfaces.AnagramSolver\Interfaces.AnagramSolver.csproj" />
+    <ProjectReference Include="..\Interfaces.AnagramSolver\AnagramSolver.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

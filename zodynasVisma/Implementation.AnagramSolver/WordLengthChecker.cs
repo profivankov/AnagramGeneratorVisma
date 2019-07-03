@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Text;
+﻿using System.Configuration;
 
-namespace Implementation.AnagramSolver
+namespace AnagramSolver.BusinessLogic
 {
-    public class CheckWordLength
+    public static class CheckWordLength
     {
         private static int _minWordLength;
         static CheckWordLength() //static constructor

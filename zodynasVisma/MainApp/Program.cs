@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Configuration;
-using Implementation.AnagramSolver;
-using Interfaces.AnagramSolver;
+using AnagramSolver.BusinessLogic;
+using AnagramSolver.Contracts;
 using System.Collections.Generic;
 
-namespace MainApp
+namespace AnagramSolver.Console
 {
     class Program
     {
@@ -13,7 +13,7 @@ namespace MainApp
         {
             var minWordLength = ConfigurationManager.AppSettings["MinWordLength"];
             if(!CheckWordLength.checkInput(args))
-                throw new Exception(String.Format("One or some of the words are too short")); ; 
+                throw new Exception(String.Format("One or some of the words is too short")); ; 
 
 
             var amtElements = args.GetLength(0);
@@ -21,11 +21,11 @@ namespace MainApp
                 throw new Exception(String.Format("Incorrect word amount")); // negaliu leist useriui iš naujo įrašinėt žodžių nes console blogai nuskaito LT raides 
 
             string[] myWords = args;
-            var object1 = new AnagramSolver(new FileWordRepository());
+            var object1 = new AnagramGenerator(new FileWordRepository());
 
             foreach (string s in object1.GetAnagrams(myWords))
             {
-                Console.WriteLine("{0}", s);
+                System.Console.WriteLine("{0}", s); //yra using system bet doesn't work without it?
             }
         
         }

@@ -1,20 +1,18 @@
 ﻿using System;
-using System.Text;
 using System.Linq;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Collections;
-using Interfaces.AnagramSolver;
+using AnagramSolver.Contracts;
 
-namespace Implementation.AnagramSolver
+namespace AnagramSolver.BusinessLogic
 {
-    public class AnagramSolver : IAnagramSolver
+    public class AnagramGenerator : IAnagramSolver
     {
         private IWordRepository _wordRepository;
         private int _maxResultAmount;
         public List<string> finalList;
 
-        public AnagramSolver(IWordRepository wordRepository)
+        public AnagramGenerator(IWordRepository wordRepository)
         {
             _wordRepository = wordRepository;
             _maxResultAmount = int.Parse(ConfigurationManager.AppSettings["MaxResultAmount"]);
