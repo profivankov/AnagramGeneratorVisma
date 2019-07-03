@@ -19,7 +19,6 @@ namespace Implementation.AnagramSolver
 
             var line = "";
             var temp = "";
-            var temp2 = "";
             while (( line = file.ReadLine()) != null)
             {
 
@@ -30,7 +29,7 @@ namespace Implementation.AnagramSolver
 
                 if (sortedDelimitedByTabOne != temp) 
                 {
-                    temp = String.Concat(delimitedByTab[0].OrderBy(c => c));
+                    temp = string.Concat(delimitedByTab[0].OrderBy(c => c));
 
                     if (!wordList.ContainsKey(temp)) // if no such key add key
                     {
@@ -41,18 +40,20 @@ namespace Implementation.AnagramSolver
                         wordList[temp].Add(delimitedByTab[0]); // add to list
 
                     // check second entry key and add to list
-                    temp2 = String.Concat(delimitedByTab[2].OrderBy(c => c));
-                    if (!wordList.ContainsKey(temp2))
+                    string currentWord = string.Concat(delimitedByTab[2].OrderBy(c => c));
+                    if (!wordList.ContainsKey(currentWord))
                     {
-                        wordList.Add(temp2, new List<string>());
-                        wordList[temp2].Add(delimitedByTab[2]);
+                        wordList.Add(currentWord, new List<string>());
+                        wordList[currentWord].Add(delimitedByTab[2]);
                     }
                     else
-                        wordList[temp2].Add(delimitedByTab[2]);
+                        wordList[currentWord].Add(delimitedByTab[2]);
                 }
             }
             return wordList;
         }
+
+
 
     }
 }

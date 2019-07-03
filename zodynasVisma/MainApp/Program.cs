@@ -2,16 +2,19 @@
 using System.Configuration;
 using Implementation.AnagramSolver;
 using Interfaces.AnagramSolver;
+using System.Collections.Generic;
 
 namespace MainApp
 {
     class Program
     {
-
+        public List<string> finalList = new List<string>();
         static void Main(string[] args)
         {
-            int minWordLength = ;
-            var maxAnagrams = ConfigurationManager.AppSettings["MaxResultAmount"];
+            var minWordLength = ConfigurationManager.AppSettings["MinWordLength"];
+            if(!CheckWordLength.checkInput(args))
+                throw new Exception(String.Format("One or some of the words are too short")); ; 
+
 
             var amtElements = args.GetLength(0);
             if (amtElements > 10 || amtElements <= 0)
@@ -19,7 +22,12 @@ namespace MainApp
 
             string[] myWords = args;
             var object1 = new AnagramSolver(new FileWordRepository());
-             object1.GetAnagrams(myWords);
+
+            foreach (string s in object1.GetAnagrams(myWords))
+            {
+                Console.WriteLine("{0}", s);
+            }
+        
         }
     }
 }
