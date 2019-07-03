@@ -10,20 +10,26 @@ namespace AnagramSolver.BusinessLogic
     {
         private IWordRepository _wordRepository;
         private int _maxResultAmount;
+        private int _defaultValue;
+        private bool success;
         public List<string> finalList;
 
         public AnagramGenerator(IWordRepository wordRepository)
         {
             _wordRepository = wordRepository;
-            _maxResultAmount = int.Parse(ConfigurationManager.AppSettings["MaxResultAmount"]);
+            success = int.TryParse(ConfigurationManager.AppSettings["MaxResultAmount"], out _defaultValue);
+            if (success)
+            {
+                _maxResultAmount = _defaultValue;
+            }
+            else
+                _maxResultAmount = 100;
             finalList = new List<string>();
         }
 
-        public IList<string> GetAnagrams(string[] myWords) 
+        public IList<string> GetAnagrams(string[] input) 
         {
-            var input = myWords;
             var counter = 0;
-            var i = 0;
             Dictionary<string, List<string>> wordList = _wordRepository.GetDictionary();
 
             foreach (string splitWord in input)
@@ -45,11 +51,12 @@ namespace AnagramSolver.BusinessLogic
                 else
                 {
                     Console.WriteLine("No such word(s) found.");
+                    return finalList;
                 }
                 if (counter > _maxResultAmount)
                 {
                     Console.WriteLine("Maximum result amount exceeded");
-                    return null;
+                    return finalList;
                 }
             }
             return finalList;

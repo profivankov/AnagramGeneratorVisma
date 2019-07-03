@@ -8,11 +8,9 @@ namespace AnagramSolver.Console
 {
     class Program
     {
-        public List<string> finalList = new List<string>();
         static void Main(string[] args)
         {
-            var minWordLength = ConfigurationManager.AppSettings["MinWordLength"];
-            if(!CheckWordLength.checkInput(args))
+            if(!WordHelper.CheckInput(args))
                 throw new Exception(String.Format("One or some of the words is too short")); ; 
 
 
