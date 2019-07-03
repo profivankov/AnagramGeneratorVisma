@@ -7,6 +7,6 @@ namespace Interfaces.AnagramSolver
 {
     public interface IWordRepository
     {
-        Dictionary<string, List<string>> GetDictionary(); // parodomas return type???
+        Dictionary<string, List<string>> GetDictionary();
     }
 }

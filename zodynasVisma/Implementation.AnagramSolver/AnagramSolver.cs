@@ -2,6 +2,7 @@
 using System.Text;
 using System.Linq;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Collections;
 using Interfaces.AnagramSolver;
 
@@ -9,66 +10,43 @@ namespace Implementation.AnagramSolver
 {
     public class AnagramSolver : IAnagramSolver
     {
-        //static string SortForHash(string word)
-        //{
-        //    string hashThis = String.Concat(word.OrderBy(c => c)); // sort word for hash 
-        //    return hashThis;
-        //}
+        private IWordRepository _wordRepository;
 
-        //static int HashFunction(string s) //hash function  
-        //{
-        //    var isAlpha = char.IsLetter(s[0]);
-        //    bool isAscii = s[0] < 128;
-        //    if (isAlpha == true && isAscii == true)
-        //    {
-        //        return Char.ToLower(s[0]) - 'a';
-        //    }
-        //    else
-        //        return 27;
-        //}
+        public AnagramSolver(IWordRepository wordRepository)
+        {
+            _wordRepository = wordRepository;
+        }
 
 
-        public IList<string> GetAnagrams(string myWords)  // split input with myWord.Split(" ") and store them in string array and then check anagrams for each word
+        public IList<string> GetAnagrams(string[] myWords) 
         {
             var input = myWords;
-            var dict = new FileWordRepository();
-            Dictionary<string, List<string>> wordList = dict.GetDictionary();
+            var counter = 0;
+            Dictionary<string, List<string>> wordList = _wordRepository.GetDictionary();
 
-            input = String.Concat(input.OrderBy(c => c));
-
-            if (wordList.ContainsKey(input))
+            foreach (string splitWord in input)
             {
+                var currentWord = string.Concat(splitWord.OrderBy(c => c));
 
-                wordList[input].ForEach(Console.WriteLine);
-                //foreach (var value in wordList[input].Values)
-                //{
-                //    value.ForEach(Console.WriteLine);
-                //}
-                //Console.WriteLine();
-                return wordList[input];
+                if (wordList.ContainsKey(currentWord))
+                {
+                    Console.WriteLine("{0}", splitWord);
+                    wordList[currentWord].ForEach(Console.WriteLine);
+                    counter += wordList[currentWord].Count(); // counting how many words being output
+                    Console.WriteLine("___________________\n");
+                }
+                else
+                {
+                    Console.WriteLine("No such word(s) found.");
+                }
+                if (counter > int.Parse(ConfigurationManager.AppSettings["MaxResultAmount"]))
+                {
+                    Console.WriteLine("Maximum result amount exceeded");
+                    return null;
+                }
             }
-            else
-                throw new Exception(String.Format("No such word {0}", myWords));   // nzn ar yra alternatyva?
-            //else
-            //{
-            //    Console.WriteLine("Entry wasn't found");
-            //    return 0; // return smth if fail
-            //}
-           
 
-
-            //List<string> sortedList = wordList[i];
-            //sortedList.Sort();
-            ////sortedList.ForEach(Console.WriteLine);
-            ////string result = sortedList.Single(s => s == input);                                                               
-            //IEnumerable<string> result = sortedList.Where(s => SortForHash(s) == sortedInput);
-
-            ////List<string> newList = sortedList.Where(obj => (obj = "aa")); // where sorted object with hash = other sorted objec with hash
-
-            //foreach (string s in result)
-            //{
-            //    Console.WriteLine(s);
-            //}
+            return null;
         }
     }
 }
