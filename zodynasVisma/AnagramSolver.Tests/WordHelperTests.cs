@@ -6,12 +6,6 @@ namespace AnagramSolver.Tests
     [TestFixture]
     public class WordHelperTests
     {
-        //private string[] input;
-
-        [SetUp]
-        public void Setup()
-        {
-        }
 
         [Test]
         public void Should_ReturnFalse_When_WordLessThanMinLetters()
@@ -25,6 +19,7 @@ namespace AnagramSolver.Tests
             var result = WordHelper.CheckInput(new string[] { "as", "tu" });
             Assert.AreEqual(result, true);
         }
+
 
 
     }

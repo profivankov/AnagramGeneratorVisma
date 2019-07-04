@@ -1,0 +1,5 @@
+﻿alus	dkt	alaus	21
+sula	dkt	sulos	1
+dievas	dkt	dievai	18
+veidas	dkt	veidai	7
+vestis	vksm	vedasi	1

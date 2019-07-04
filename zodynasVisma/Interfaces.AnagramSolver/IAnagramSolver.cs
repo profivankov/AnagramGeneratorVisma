@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.IO;
 
 namespace AnagramSolver.Contracts
 {
     public interface IAnagramSolver
     {
-        IList<string> GetAnagrams(string[] myWords);
+        IList<string> GetAnagrams(string[] myWords, StreamReader file);
     }
 }

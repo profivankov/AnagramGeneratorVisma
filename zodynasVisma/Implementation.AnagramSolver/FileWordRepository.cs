@@ -9,14 +9,13 @@ namespace AnagramSolver.BusinessLogic
 {
     public class FileWordRepository : IWordRepository
     {
-        public Dictionary<string, List<string>> GetDictionary()
+        public Dictionary<string, List<string>> GetDictionary(StreamReader file)
         {
             Console.OutputEncoding = Encoding.UTF8;
             
             Dictionary<string, List<string>> wordList = new Dictionary<string, List<string>>();
 
-            var file = new StreamReader(@"C:\Users\mantrimas\source\repos\zodynasVisma\zodynasVisma\test.txt"); // try catch reiktu į main
-
+   
             var line = "";
             var temp = "";
             while (( line = file.ReadLine()) != null)

@@ -3,34 +3,27 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Configuration;
 using AnagramSolver.Contracts;
+using System.IO;
 
 namespace AnagramSolver.BusinessLogic
 {
-    public class AnagramGenerator : IAnagramSolver
+    public class AnagramSolver : IAnagramSolver
     {
         private IWordRepository _wordRepository;
         private int _maxResultAmount;
-        private int _defaultValue;
-        private bool success;
         public List<string> finalList;
 
-        public AnagramGenerator(IWordRepository wordRepository)
+        public AnagramSolver(IWordRepository wordRepository, int maxResultAmount)
         {
             _wordRepository = wordRepository;
-            success = int.TryParse(ConfigurationManager.AppSettings["MaxResultAmount"], out _defaultValue);
-            if (success)
-            {
-                _maxResultAmount = _defaultValue;
-            }
-            else
-                _maxResultAmount = 100;
             finalList = new List<string>();
+            _maxResultAmount = maxResultAmount;
         }
 
-        public IList<string> GetAnagrams(string[] input) 
+        public IList<string> GetAnagrams(string[] input, StreamReader file) 
         {
             var counter = 0;
-            Dictionary<string, List<string>> wordList = _wordRepository.GetDictionary();
+            Dictionary<string, List<string>> wordList = _wordRepository.GetDictionary(file);
 
             foreach (string splitWord in input)
             {
@@ -38,24 +31,25 @@ namespace AnagramSolver.BusinessLogic
 
                 if (wordList.ContainsKey(currentWord))
                 {
-                    finalList.Add(splitWord); //
-                    finalList.Add("\n");
+                    //finalList.Add(splitWord); //
+                    //finalList.Add("\n");
                     //wordList[currentWord].ForEach(Console.WriteLine);
                     foreach (string s in wordList[currentWord])
                     {
                         finalList.Add(s); // adds every anagram from the list
                     }
                     counter += wordList[currentWord].Count(); // counting how many words being output
-                    finalList.Add("___________________\n");
+                    //finalList.Add("___________________\n");
                 }
                 else
                 {
                     Console.WriteLine("No such word(s) found.");
                     return finalList;
                 }
-                if (counter > _maxResultAmount)
+                if (counter >= _maxResultAmount)
                 {
                     Console.WriteLine("Maximum result amount exceeded");
+                    finalList.Add("MAXWORDSREACHED");
                     return finalList;
                 }
             }
