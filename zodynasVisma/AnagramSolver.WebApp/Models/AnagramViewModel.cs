@@ -8,7 +8,8 @@ namespace AnagramSolver.WebApp.Models
     public class AnagramViewModel
     {
         public IList<string> wordList { get; set; }
-        //public string Message { get; set; }
-        //public int NumOfTimes { get; set; }
+
+        public string[] input { get; set; }
+
     }
 }

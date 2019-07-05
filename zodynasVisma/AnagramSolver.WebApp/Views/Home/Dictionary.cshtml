@@ -1,4 +1,58 @@
-﻿@model DictionaryViewModel
+﻿@model IndexViewModel
 @{
 	ViewData["Title"] = "Dictionary";
 }
+
+<html>
+<head>
+	<title>ASP.NET MVC - Pagination Example</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+<body>
+			<h1>Dictionary</h1>
+
+			<!-- items being paged -->
+			<ul>
+				@foreach (var element in Model.Items)
+				{
+				<li>@element</li>
+			
+				}
+			</ul>
+
+			<!-- pager -->
+			@if (Model.Pager.EndPage > 1)
+			{
+				<ul class="pagination">
+					@if (Model.Pager.CurrentPage > 1)
+					{
+						<li>
+							<a href="~/Home/Dictionary">First</a>
+						</li>
+						<li>
+							<a href="~/Home/Dictionary?pageNum=@(Model.Pager.CurrentPage - 1)">Previous</a>
+						</li>
+					}
+
+					@for (var pageNum = Model.Pager.StartPage; pageNum <= Model.Pager.EndPage; pageNum++)
+					{
+						<li class="@(pageNum == Model.Pager.CurrentPage ? "active" : "")">
+							<a href="~/Home/Dictionary?pageNum=@pageNum">@pageNum</a>
+						</li>
+					}
+
+					@if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
+					{
+						<li>
+							<a href="~/Home/Dictionary?pageNum=@(Model.Pager.CurrentPage + 1)">Next</a>
+						</li>
+						<li>
+							<a href="~/Home/Dictionary?pageNum=@(Model.Pager.TotalPages)">Last</a>
+						</li>
+					}
+				</ul>
+			}
+	<hr />
+</body>
+</html>
+
