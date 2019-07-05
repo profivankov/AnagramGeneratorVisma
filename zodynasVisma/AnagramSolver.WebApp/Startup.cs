@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using AnagramSolver.BusinessLogic;
+using AnagramSolver.Contracts;
 
 namespace AnagramSolver.WebApp
 {
@@ -31,7 +33,8 @@ namespace AnagramSolver.WebApp
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
+            services.AddSingleton<IWordRepository, FileWordRepository>();
+            services.AddSingleton<IAnagramSolver, BusinessLogic.AnagramSolver>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
