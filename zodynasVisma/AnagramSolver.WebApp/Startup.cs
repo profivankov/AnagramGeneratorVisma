@@ -61,7 +61,7 @@ namespace AnagramSolver.WebApp
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/"); // where is Home defined?
+                    template: "{controller=Home}/{action=Home}/"); 
                     
 
             });

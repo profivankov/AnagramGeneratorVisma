@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 
 namespace AnagramSolver.WebApp.Models
 {
-    public class IndexViewModel
+    public class DictionaryViewModel
     {
         public IEnumerable<string> Items { get; set; }
         //public List<string> WordList { get; set; }
-        public DictionaryViewModel Pager { get; set; }
+        public Pager Pager { get; set; }
     }
 
-    public class DictionaryViewModel
+    public class Pager
     {
-        public DictionaryViewModel(int totalItems, int pageNum, int pageSize = 100)
+        public Pager (int totalItems, int pageNum, int pageSize = 100)
         {
             // calculate total, start and end pages
             var totalPages = (int)Math.Ceiling((decimal)totalItems / (decimal)pageSize);

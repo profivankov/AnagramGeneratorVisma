@@ -1,4 +1,4 @@
-﻿@model IndexViewModel
+﻿@model DictionaryViewModel
 @{
 	ViewData["Title"] = "Dictionary";
 }
@@ -18,7 +18,7 @@
 				//<li>@element</li>
   
                 <li>
-                    <a href="~/Home/Index/@element">@element</a>
+                    <a href="~/AnagramSolver/Index/@element">@element</a>
                 </li>
 				}
 			</ul>
@@ -30,27 +30,27 @@
 					@if (Model.Pager.CurrentPage > 1)
 					{
 						<li>
-							<a href="~/Home/Dictionary">First</a>
+							<a href="~/Dictionary/Dictionary">First</a>
 						</li>
 						<li>
-							<a href="~/Home/Dictionary?pageNum=@(Model.Pager.CurrentPage - 1)">Previous</a>
+							<a href="~/Dictionary/Dictionary?pageNum=@(Model.Pager.CurrentPage - 1)">Previous</a>
 						</li>
 					}
 
 					@for (var pageNum = Model.Pager.StartPage; pageNum <= Model.Pager.EndPage; pageNum++)
 					{
 						<li class="@(pageNum == Model.Pager.CurrentPage ? "active" : "")">
-							<a href="~/Home/Dictionary?pageNum=@pageNum">@pageNum</a>
+							<a href="~/Dictionary/Dictionary?pageNum=@pageNum">@pageNum</a>
 						</li>
 					}
 
 					@if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
 					{
 						<li>
-							<a href="~/Home/Dictionary?pageNum=@(Model.Pager.CurrentPage + 1)">Next</a>
+							<a href="~/Dictionary/Dictionary?pageNum=@(Model.Pager.CurrentPage + 1)">Next</a>
 						</li>
 						<li>
-							<a href="~/Home/Dictionary?pageNum=@(Model.Pager.TotalPages)">Last</a>
+							<a href="~/Dictionary/Dictionary?pageNum=@(Model.Pager.TotalPages)">Last</a>
 						</li>
 					}
 				</ul>
