@@ -45,8 +45,8 @@ namespace AnagramSolver.WebApp.ApiControllers
                 _defaultValue = 100;
             }
             anagramObject = new BusinessLogic.AnagramSolver(new FileWordRepository(), _defaultValue);
-            var resultList = new AnagramViewModel { wordList = anagramObject.GetAnagrams(splitInput, file) };
-            return resultList.wordList;
+            var resultList = new AnagramViewModel { WordList = anagramObject.GetAnagrams(splitInput, file) };
+            return resultList.WordList;
         }
 
         // POST api/<controller>

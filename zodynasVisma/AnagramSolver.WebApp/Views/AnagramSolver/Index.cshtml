@@ -1,24 +1,29 @@
-﻿@model AnagramViewModel
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@model AnagramViewModel
 @{
-	ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home Page";
 }
 
 <h2>List of Anagrams: </h2>
 
 <ul>
-	@foreach (string anagram in Model.wordList)
-	{
-		<li>@anagram</li>
-	}
+    @foreach (string anagram in Model.WordList)
+    {
+        <li>@anagram</li>
+    }
 </ul>
 
 
 
 @using (Html.BeginForm("Index", "AnagramSolver", FormMethod.Post))
 {
-	@Html.TextBoxFor(model => model.input)
-	@Html.ValidationMessageFor(model => model.input)
+    @Html.TextBoxFor(model => model.Input)
+    @Html.ValidationMessageFor(model => model.Input)
     //@Request.QueryString.Clear();
 
-	<button type="submit">Find anagrams</button>
+    <button type="submit">Find anagrams</button>
 }
+
+
+
+

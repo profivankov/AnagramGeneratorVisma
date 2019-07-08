@@ -33,6 +33,7 @@ namespace AnagramSolver.WebApp
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); // for cookies
             services.AddSingleton<IWordRepository, FileWordRepository>();
             services.AddSingleton<IAnagramSolver, BusinessLogic.AnagramSolver>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

@@ -9,53 +9,54 @@
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 </head>
 <body>
-			<h1>Dictionary</h1>
+    <h1>Dictionary</h1>
 
-			<!-- items being paged -->
-			<ul>
-				@foreach (var element in Model.Items)
-				{
-				//<li>@element</li>
-  
+    <!-- items being paged -->
+    <ul>
+        @foreach (var element in Model.Items)
+        {
+            //<li>@element</li>
+
+            <li>
+                <a href="~/AnagramSolver/Index/@element">@element</a>
+            </li>
+        }
+    </ul>
+
+    <!-- pager -->
+    @if (Model.Pager.EndPage > 1)
+    {
+        <ul class="pagination">
+            @if (Model.Pager.CurrentPage > 1)
+            {
                 <li>
-                    <a href="~/AnagramSolver/Index/@element">@element</a>
+                    <a href="~/Dictionary/Dictionary">First</a>
                 </li>
-				}
-			</ul>
+                <li>
+                    <a href="~/Dictionary/Dictionary?pageNum=@(Model.Pager.CurrentPage - 1)">Previous</a>
+                </li>
+            }
 
-			<!-- pager -->
-			@if (Model.Pager.EndPage > 1)
-			{
-				<ul class="pagination">
-					@if (Model.Pager.CurrentPage > 1)
-					{
-						<li>
-							<a href="~/Dictionary/Dictionary">First</a>
-						</li>
-						<li>
-							<a href="~/Dictionary/Dictionary?pageNum=@(Model.Pager.CurrentPage - 1)">Previous</a>
-						</li>
-					}
+            @for (var pageNum = Model.Pager.StartPage; pageNum <= Model.Pager.EndPage; pageNum++)
+            {
+                <li class="@(pageNum == Model.Pager.CurrentPage ? "active" : "")">
+                    <a href="~/Dictionary/Dictionary?pageNum=@pageNum">@pageNum</a>
+                </li>
+            }
 
-					@for (var pageNum = Model.Pager.StartPage; pageNum <= Model.Pager.EndPage; pageNum++)
-					{
-						<li class="@(pageNum == Model.Pager.CurrentPage ? "active" : "")">
-							<a href="~/Dictionary/Dictionary?pageNum=@pageNum">@pageNum</a>
-						</li>
-					}
-
-					@if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
-					{
-						<li>
-							<a href="~/Dictionary/Dictionary?pageNum=@(Model.Pager.CurrentPage + 1)">Next</a>
-						</li>
-						<li>
-							<a href="~/Dictionary/Dictionary?pageNum=@(Model.Pager.TotalPages)">Last</a>
-						</li>
-					}
-				</ul>
-			}
-	<hr />
+            @if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
+            {
+                <li>
+                    <a href="~/Dictionary/Dictionary?pageNum=@(Model.Pager.CurrentPage + 1)">Next</a>
+                </li>
+                <li>
+                    <a href="~/Dictionary/Dictionary?pageNum=@(Model.Pager.TotalPages)">Last</a>
+                </li>
+            }
+        </ul>
+    }
+    <hr />
+    <p><a asp-area="" asp-controller="Dictionary" asp-action="Download">Download Dictionary</a></p>
 </body>
 </html>
 

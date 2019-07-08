@@ -1,0 +1,13 @@
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@model AnagramViewModel
+@{
+    ViewData["Title"] = "Cookies";
+}
+
+<h2>Cookies</h2>
+
+
+@{
+    var myCookies = @HttpContextAccessor.HttpContext.Request.Cookies["searchedWord"];
+    <p>@myCookies</p>
+}

@@ -21,7 +21,7 @@ namespace AnagramSolver.WebApp.Controllers
 
         public IActionResult Index() // must return this if user doesnt submit input, also find way for app to load index instead of blank localhost page
         {
-            return View(new AnagramViewModel { wordList = new List<string>() });
+            return View(new AnagramViewModel { WordList = new List<string>() });
         }
 
         [Route("AnagramSolver/Index/{word?}")] // kam sitas reikalingas jeigu startup.cs apibrezti routes?
@@ -31,17 +31,23 @@ namespace AnagramSolver.WebApp.Controllers
             if (!string.IsNullOrEmpty(word))
             {
                 
-                request.input = word.Split(" ");
+                request.Input = word.Split(" ");
             }
 
-            if (request.input == null || request.input.Length == 0)
+            if (request.Input == null || request.Input.Length == 0)
             {
                 return Index();
             }
 
-            RouteData.Values.Remove("word"); // removes url parameter 
-            var input = string.Join(" ", request.input);
+            //string someword = request.Input.ToString();
 
+
+            
+  
+
+            RouteData.Values.Remove("word"); // removes url parameter 
+            var input = string.Join(" ", request.Input);
+            Response.Cookies.Append("searchedWord", input); // add cookie
             var splitInput = input.Split(" "); // put the strings seperated by spaces into an array so they can be passed to the GetAnagrams function // need to find a better workaround
 
             bool success = int.TryParse(ConfigurationManager.AppSettings["MaxResultAmount"], out var _defaultValue);
@@ -50,7 +56,7 @@ namespace AnagramSolver.WebApp.Controllers
                 _defaultValue = 100;
             }
             anagramObject = new BusinessLogic.AnagramSolver(new FileWordRepository(), _defaultValue);
-            var resultList = new AnagramViewModel { wordList = anagramObject.GetAnagrams(splitInput, file) };
+            var resultList = new AnagramViewModel { WordList = anagramObject.GetAnagrams(splitInput, file) };
             return View(resultList);
         }
 

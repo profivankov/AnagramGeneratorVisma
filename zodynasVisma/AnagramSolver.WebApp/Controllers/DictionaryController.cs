@@ -31,5 +31,12 @@ namespace AnagramSolver.WebApp.Controllers
 
             return View(viewModel);
         }
+
+        public FileResult Download()
+        {
+            byte[] fileBytes = System.IO.File.ReadAllBytes(@"C:\Users\mantrimas\source\repos\zodynasVisma\zodynasVisma\zodynas.txt");
+            string fileName = "dictionary.txt";
+            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+        }
     }
 }
