@@ -15,8 +15,11 @@
 			<ul>
 				@foreach (var element in Model.Items)
 				{
-				<li>@element</li>
-			
+				//<li>@element</li>
+  
+                <li>
+                    <a href="~/Home/Index/@element">@element</a>
+                </li>
 				}
 			</ul>
 

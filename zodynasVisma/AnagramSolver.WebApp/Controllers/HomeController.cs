@@ -1,10 +1,14 @@
 ﻿using AnagramSolver.BusinessLogic;
 using AnagramSolver.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+
+
+
 
 
 namespace AnagramSolver.WebApp.Controllers
@@ -25,22 +29,45 @@ namespace AnagramSolver.WebApp.Controllers
             file = new StreamReader(@"C:\Users\mantrimas\source\repos\zodynasVisma\zodynasVisma\zodynas.txt");
         }
 
+        //[Route("Home/Index")]
         public IActionResult Index() // must return this if user doesnt submit input, also find way for app to load index instead of blank localhost page
         {
-            return new EmptyResult();
+            return View( new AnagramViewModel { wordList = new List<string>() } );
         }
 
-        [Route("Home/Index/")]
-        public IActionResult Index(string[] input)  
+        [Route("Home/Index/{word}")]
+        public IActionResult Index(AnagramViewModel request, string[] word)  
         {
-            string words = string.Join(" ", input); // transform string array into single string seperated by spaces (original input has all strings in first index of the array)
-            input = words.Split(" "); // put the strings seperated by spaces into an array so they can be passed to the GetAnagrams function // need to find a better workaround
+            var checkWord = string.Join(" ", word);
+
+            if (!string.IsNullOrEmpty(checkWord))
+            {
+                request.input = word;
+                //Response.Redirect(checkWord);
+                //Index(request, request.input);
+            }
+            else
+            {
+                word = request.input;
+            }
+
+            if (request.input == null)
+            {
+                return Index();
+            }
+
+
+            var input = string.Join(" ", request.input);
+
+            //string words = string.Join(" ", input); // transform string array into single string seperated by spaces (original input has all strings in first index of the array)
+            var splitInput = input.Split(" "); // put the strings seperated by spaces into an array so they can be passed to the GetAnagrams function // need to find a better workaround
+
             bool success = int.TryParse(ConfigurationManager.AppSettings["MaxResultAmount"], out var _defaultValue);
             if (!success)
             {
                 _defaultValue = 100;
             }
-            routeInput = input;
+            routeInput = splitInput;
             anagramObject = new BusinessLogic.AnagramSolver(new FileWordRepository(), _defaultValue);
             var resultList = new AnagramViewModel { wordList = anagramObject.GetAnagrams(routeInput, file) };
             return View(resultList);
