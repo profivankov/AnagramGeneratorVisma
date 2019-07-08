@@ -29,34 +29,36 @@ namespace AnagramSolver.WebApp.Controllers
             file = new StreamReader(@"C:\Users\mantrimas\source\repos\zodynasVisma\zodynasVisma\zodynas.txt");
         }
 
+      
+
         //[Route("Home/Index")]
         public IActionResult Index() // must return this if user doesnt submit input, also find way for app to load index instead of blank localhost page
         {
             return View( new AnagramViewModel { wordList = new List<string>() } );
         }
 
-        [Route("Home/Index/{word}")]
-        public IActionResult Index(AnagramViewModel request, string[] word)  
+        [Route("Home/Index/{word?}")]
+        public IActionResult Index(AnagramViewModel request, string word)  
         {
-            var checkWord = string.Join(" ", word);
 
-            if (!string.IsNullOrEmpty(checkWord))
+            //var checkWord = string.Join(" ", word);
+            //var fixedWord = word.Split(" ");
+
+            if (!string.IsNullOrEmpty(word))
             {
-                request.input = word;
+                
+                request.input = word.Split(" ");
                 //Response.Redirect(checkWord);
                 //Index(request, request.input);
             }
-            else
-            {
-                word = request.input;
-            }
 
-            if (request.input == null)
+
+            if (request.input == null || request.input.Length == 0)
             {
                 return Index();
             }
 
-
+            RouteData.Values.Remove("word"); // removes url parameter 
             var input = string.Join(" ", request.input);
 
             //string words = string.Join(" ", input); // transform string array into single string seperated by spaces (original input has all strings in first index of the array)

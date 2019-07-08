@@ -18,5 +18,7 @@
 {
 	@Html.TextBoxFor(model => model.input)
 	@Html.ValidationMessageFor(model => model.input)
+    //@Request.QueryString.Clear();
+
 	<button type="submit">Find anagrams</button>
 }
