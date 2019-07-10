@@ -28,7 +28,7 @@ namespace AnagramSolver.Tests
         [Test]
         public void Should_ReturnEmptyList_When_EmptyInput()
         {
-            var result = testObject.GetAnagrams(new string[] { }, testFile);
+            var result = testObject.GetAnagrams(new string[] { });
             Assert.AreEqual(result, new List<string>());
         }
     }

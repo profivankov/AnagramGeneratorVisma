@@ -5,7 +5,7 @@
 }
 
 <h2>List of Anagrams: </h2>
-
+<br />
 <ul>
     @foreach (string anagram in Model.WordList)
     {
@@ -19,7 +19,6 @@
 {
     @Html.TextBoxFor(model => model.Input)
     @Html.ValidationMessageFor(model => model.Input)
-    //@Request.QueryString.Clear();
 
     <button type="submit">Find anagrams</button>
 }

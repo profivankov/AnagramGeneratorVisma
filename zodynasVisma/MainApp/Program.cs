@@ -2,12 +2,13 @@
 using System.Configuration;
 using System.IO;
 using AnagramSolver.BusinessLogic;
-
+using AnagramSolver.Contracts;
 
 namespace AnagramSolver.Console
 {
     class Program
     {
+        
         static void Main(string[] args)
         {
             if(!WordHelper.CheckInput(args))
@@ -19,18 +20,12 @@ namespace AnagramSolver.Console
                 throw new Exception(String.Format("Incorrect word amount")); // negaliu leist useriui iš naujo įrašinėt žodžių nes console blogai nuskaito LT raides 
 
 
-            bool success = int.TryParse(ConfigurationManager.AppSettings["MaxResultAmount"], out var _defaultValue);
-            if (!success)
-            {
-                _defaultValue = 100;
-            }
-
-            var file = new StreamReader(@"C:\Users\mantrimas\source\repos\zodynasVisma\zodynasVisma\zodynas.txt");
+            IWordRepository _wordRepository = new SQLWordRepository();
 
             string[] myWords = args;
-            var object1 = new BusinessLogic.AnagramSolver(new FileWordRepository(), _defaultValue);
+            var object1 = new BusinessLogic.AnagramSolver(_wordRepository);
 
-            foreach (string s in object1.GetAnagrams(myWords, file))
+            foreach (string s in object1.GetAnagrams(myWords))
             {
                 System.Console.WriteLine("{0}", s); //yra using system bet doesn't work without it?
             }

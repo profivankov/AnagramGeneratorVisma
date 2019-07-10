@@ -1,4 +1,5 @@
 ﻿using AnagramSolver.BusinessLogic;
+using AnagramSolver.Contracts;
 using AnagramSolver.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
@@ -8,18 +9,16 @@ namespace AnagramSolver.WebApp.Controllers
 {
     public class DictionaryController : Controller
     {
-        public FileWordRepository dictonaryObject { get; set; }
-        StreamReader file;
+        private IWordRepository _wordRepository;
 
-        public DictionaryController()
+        public DictionaryController(IWordRepository wordRepository)
         {
-            file = new StreamReader(@"C:\Users\mantrimas\source\repos\zodynasVisma\zodynasVisma\zodynas.txt");
+            _wordRepository = wordRepository; 
         }
 
         public IActionResult Dictionary(int pageNum)
         {
-            dictonaryObject = new FileWordRepository();
-            var list = dictonaryObject.GetDictionary(file).Values.SelectMany(x => x); //.ToList();
+            var list = _wordRepository.GetDictionary().Values.SelectMany(x => x); //.ToList();
 
             var pager = new Pager(list.Count(), pageNum);
 

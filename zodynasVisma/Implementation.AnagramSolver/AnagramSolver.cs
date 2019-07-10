@@ -10,20 +10,30 @@ namespace AnagramSolver.BusinessLogic
     public class AnagramSolver : IAnagramSolver
     {
         private IWordRepository _wordRepository;
-        private int _maxResultAmount;
+        public int _maxResultAmount;
         public List<string> finalList;
 
-        public AnagramSolver(IWordRepository wordRepository, int maxResultAmount)
+        public AnagramSolver(IWordRepository wordRepository)
         {
             _wordRepository = wordRepository;
             finalList = new List<string>();
-            _maxResultAmount = maxResultAmount;
         }
 
-        public IList<string> GetAnagrams(string[] input, StreamReader file) 
+        public int MaxResultAmount()
+        {
+            bool success = int.TryParse(ConfigurationManager.AppSettings["MaxResultAmount"], out var _maxResultAmount);
+            if (!success)
+            {
+                _maxResultAmount = 100;
+            }
+            return _maxResultAmount;
+        }
+
+        public IList<string> GetAnagrams(string[] input) 
         {
             var counter = 0;
-            Dictionary<string, List<string>> wordList = _wordRepository.GetDictionary(file);
+            _maxResultAmount = MaxResultAmount();
+            var wordList = _wordRepository.GetDictionary();
 
             foreach (string splitWord in input)
             {
@@ -31,15 +41,11 @@ namespace AnagramSolver.BusinessLogic
 
                 if (wordList.ContainsKey(currentWord))
                 {
-                    //finalList.Add(splitWord); //
-                    //finalList.Add("\n");
-                    //wordList[currentWord].ForEach(Console.WriteLine);
                     foreach (string s in wordList[currentWord])
                     {
                         finalList.Add(s); // adds every anagram from the list
                     }
                     counter += wordList[currentWord].Count(); // counting how many words being output
-                    //finalList.Add("___________________\n");
                 }
                 else
                 {

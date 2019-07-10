@@ -1,0 +1,22 @@
+﻿@model SearchViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h2>Search results: </h2>
+<br>
+<ul>
+    @foreach (string anagram in Model.WordList)
+    {
+        <li>@anagram</li>
+    }
+</ul>
+
+<form asp-action="Search" asp-controller="Search">
+    
+    <input asp-for="Input" placeholder="search words" />
+    <input type="submit" id="Search" />
+</form>
+
+
+

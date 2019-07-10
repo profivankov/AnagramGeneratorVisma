@@ -32,10 +32,11 @@ namespace AnagramSolver.WebApp
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); // for cookies
-            services.AddSingleton<IWordRepository, FileWordRepository>();
-            services.AddSingleton<IAnagramSolver, BusinessLogic.AnagramSolver>();
+            
+            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>(); // for cookies
+            services.AddSingleton<IWordRepository>(x=> new SQLWordRepository());
+            services.AddTransient<IAnagramSolver, BusinessLogic.AnagramSolver>();
+            services.AddTransient<ICacheRepository, BusinessLogic.AnagramCache>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AnagramSolver.BusinessLogic;
+using AnagramSolver.Contracts;
 using AnagramSolver.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,13 +18,15 @@ namespace AnagramSolver.WebApp.ApiControllers
     public class ApiController : Controller
     {
 
-        public BusinessLogic.AnagramSolver anagramObject { get; set; }
-        StreamReader file;
+        private readonly IAnagramSolver anagramSolver;
+        private readonly IWordRepository wordRepository;
 
-        public ApiController()
+        public ApiController(IAnagramSolver anagramSolver, IWordRepository wordRepository)
         {
-            file = new StreamReader(@"C:\Users\mantrimas\source\repos\zodynasVisma\zodynasVisma\zodynas.txt");
+            this.anagramSolver = anagramSolver;
+            this.wordRepository = wordRepository;
         }
+
 
         // GET: api/<controller>
         [HttpGet]
@@ -44,8 +47,8 @@ namespace AnagramSolver.WebApp.ApiControllers
             {
                 _defaultValue = 100;
             }
-            anagramObject = new BusinessLogic.AnagramSolver(new FileWordRepository(), _defaultValue);
-            var resultList = new AnagramViewModel { WordList = anagramObject.GetAnagrams(splitInput, file) };
+
+            var resultList = new AnagramViewModel { WordList = anagramSolver.GetAnagrams(splitInput) };
             return resultList.WordList;
         }
 
