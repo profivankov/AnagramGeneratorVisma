@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AnagramSolver.Models\AnagramSolver.Models.csproj" />
     <ProjectReference Include="..\Interfaces.AnagramSolver\AnagramSolver.Contracts.csproj" />
   </ItemGroup>
 

@@ -1,5 +1,6 @@
 ﻿using AnagramSolver.Contracts;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -7,6 +8,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using AnagramSolver.Models;
 
 namespace AnagramSolver.BusinessLogic
 {
@@ -16,7 +18,16 @@ namespace AnagramSolver.BusinessLogic
         {
             using (var connection = new SqlConnection("Server=LT-LIT-SC-0116\\ANAGRAMSOLVER; Database=Dictionary; Integrated Security=true"))
             {
-                var resultList = ReadAnagramIDs(list);
+                var resultList = new List<int>();
+                var anagramList = ReadAnagramIDs(list); 
+                var sortedword = string.Concat(word.OrderBy(c => c));
+                for (int i=0; i<anagramList.IDList.Count(); i++)
+                {
+                    if (string.Concat(anagramList.WordList[i].OrderBy(c => c)) == sortedword)
+                    {
+                        resultList.Add(anagramList.IDList[i]);
+                    }
+                }
                 connection.Open();
                 var cmd = new SqlCommand("INSERT INTO CachedWords (Anagram_Word_ID, Searched_Word) VALUES (@readID, @SearchedWord)", connection);
 
@@ -32,9 +43,11 @@ namespace AnagramSolver.BusinessLogic
                 }
             }
         }
-        public List<int> ReadAnagramIDs(IList<string> list)
+        private CacheModel ReadAnagramIDs(IList<string> receivedList)
         {
-            var resultList = new List<int>();
+            var resultLists = new CacheModel { IDList = new List<int>(), WordList = new List<string>() };
+            var list = receivedList.Distinct();
+            //var resultList = new List<int>();
             using (var connection = new SqlConnection("Server=LT-LIT-SC-0116\\ANAGRAMSOLVER; Database=Dictionary; Integrated Security=true"))
             {
                 connection.Open();
@@ -49,13 +62,14 @@ namespace AnagramSolver.BusinessLogic
                     {
                         while (dr.Read())
                         {
-                            resultList.Add(dr.GetInt32(0));
+                            resultLists.IDList.Add(dr.GetInt32(0));
+                            resultLists.WordList.Add(s);
                         }
                     }
                     dr.Close();
                 }
             }
-            return resultList;
+            return resultLists;
         }
         public List<string> SearchCacheForAnagrams(string input)
         {
@@ -63,11 +77,6 @@ namespace AnagramSolver.BusinessLogic
             // if empty, return null
             var list = new List<int>();
             var resultList = new List<string>();
-
-            //var wordIDList = ReadAnagramIDs(list);
-
-
-
             //can use ReadAnagramIDS for this I think
             using (var connection = new SqlConnection("Server=LT-LIT-SC-0116\\ANAGRAMSOLVER; Database=Dictionary; Integrated Security=true"))
             {

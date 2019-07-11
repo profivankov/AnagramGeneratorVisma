@@ -1,14 +1,10 @@
-﻿using AnagramSolver.BusinessLogic;
+﻿
 using AnagramSolver.Contracts;
 using AnagramSolver.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
+
 
 namespace AnagramSolver.WebApp.Controllers
 {
@@ -51,14 +47,18 @@ namespace AnagramSolver.WebApp.Controllers
             var resultList = new AnagramViewModel();
             if (cacheList.Count == 0) // if words aren't cached use getanagrams and cache
             {
-                resultList = new AnagramViewModel { WordList = anagramSolver.GetAnagrams(splitInput) }; 
-                CacheWords(resultList.WordList, input); //  kiaule prideda du kartus kazkodel
+                resultList = new AnagramViewModel { WordList = anagramSolver.GetAnagrams(splitInput) };
+                foreach (string s in splitInput)
+                {
+                    CacheWords(resultList.WordList, s); 
+                }
             }
             else
             {
                 resultList.WordList = cacheList;
             }
-            
+
+
             return View(resultList);
         }
 
