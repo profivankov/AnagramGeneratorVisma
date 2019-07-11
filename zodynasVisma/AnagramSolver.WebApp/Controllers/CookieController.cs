@@ -12,5 +12,9 @@ namespace AnagramSolver.WebApp.Controllers
         {
             return View();
         }
+        public IActionResult UserLog()
+        {
+            return View();
+        }
     }
 }
