@@ -14,14 +14,19 @@
 </ul>
 
 
+<form asp-action="Index" asp-controller="AnagramSolver">
 
-@using (Html.BeginForm("Index", "AnagramSolver", FormMethod.Post))
+    <input asp-for="Input"/>
+    <input type="submit" id="Search" />
+</form>
+
+@*@using (Html.BeginForm("Index", "AnagramSolver", FormMethod.Post))
 {
     @Html.TextBoxFor(model => model.Input)
     @Html.ValidationMessageFor(model => model.Input)
 
     <button type="submit">Find anagrams</button>
-}
+}*@
 
 
 

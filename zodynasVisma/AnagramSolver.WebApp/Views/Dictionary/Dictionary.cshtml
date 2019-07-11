@@ -18,7 +18,12 @@
             //<li>@element</li>
 
             <li>
-                <a href="~/AnagramSolver/Index/@element">@element</a>
+                <form asp-action="Index" asp-controller="AnagramSolver">
+                    <input asp-for="Input" value="@element"/>
+                    <input type="submit" id="@element" />
+                </form>
+
+                @*<a href="~/AnagramSolver/Index/@element">@element</a>*@
             </li>
         }
     </ul>

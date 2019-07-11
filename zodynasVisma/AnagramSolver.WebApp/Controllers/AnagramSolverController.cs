@@ -25,20 +25,13 @@ namespace AnagramSolver.WebApp.Controllers
         }
 
         [Route("AnagramSolver/Index/{word?}")] // kam sitas reikalingas jeigu startup.cs apibrezti routes? kad passint argument
-        public IActionResult Index(AnagramViewModel request, string word)  
+        public IActionResult Index(AnagramViewModel request)  
         {
-
-            if (!string.IsNullOrEmpty(word))
-            {
-                request.Input = word.Split(" ");
-            }
-
             if (request.Input == null || request.Input.Length == 0)
             {
                 return Index();
             }
 
-            RouteData.Values.Remove("word"); // removes url parameter 
             var input = string.Join(" ", request.Input);
             Response.Cookies.Append("searchedWord", input); // add cookie
             var splitInput = input.Split(" "); // put the strings seperated by spaces into an array so they can be passed to the GetAnagrams function // need to find a better workaround

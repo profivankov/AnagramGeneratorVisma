@@ -10,6 +10,7 @@ namespace AnagramSolver.WebApp.Models
         public IEnumerable<string> Items { get; set; }
         //public List<string> WordList { get; set; }
         public Pager Pager { get; set; }
+        public string[] Input { get; set; }
     }
 
     public class Pager
