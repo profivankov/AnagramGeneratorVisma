@@ -16,7 +16,7 @@ namespace AnagramSolver.WebApp.Controllers
             _wordRepository = wordRepository; 
         }
 
-        public IActionResult Dictionary(int pageNum)
+        public IActionResult Index(int pageNum)
         {
             var list = _wordRepository.GetDictionary().Values.SelectMany(x => x); //.ToList();
 

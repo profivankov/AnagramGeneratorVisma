@@ -22,8 +22,8 @@ namespace AnagramSolver.WebApp.Controllers
         {
             return View(new SearchViewModel { WordList = new List<string>() });
         }
-
-        public IActionResult Search(SearchViewModel request)
+        [Route("Search/Index/")]
+        public IActionResult Index(SearchViewModel request)
         {
             if(string.IsNullOrEmpty(request.Input))
             {

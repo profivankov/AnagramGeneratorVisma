@@ -9,6 +9,6 @@ namespace AnagramSolver.Models
         public string IPAdress { get; set; }
         public DateTime SearchTime { get; set; }
         public string SearchedWord { get; set; }
-        public List<string> AnagramList { get; set; }
+        public string AnagramWord { get; set; }
     }
 }

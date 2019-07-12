@@ -11,7 +11,7 @@ namespace AnagramSolver.WebApp.Models
     public class HomeController : Controller
     {
         // GET: /<controller>/
-        public IActionResult Home()
+        public IActionResult Index()
         {
             return View();
         }

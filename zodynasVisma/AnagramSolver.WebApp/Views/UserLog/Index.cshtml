@@ -1,0 +1,38 @@
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@model List<UserLogViewModel>
+@{
+    ViewData["Title"] = "User Log";
+}
+
+@{
+    var myCookies = @HttpContextAccessor.HttpContext.Request.Cookies["searchedWord"];
+}
+
+<h1>User Log</h1> 
+<hr />
+<div class="alert alert-success">Last searched words: @myCookies</div>
+
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>User IP</th>
+            <th>Search Time</th>
+            <th>Searched Word</th>
+            <th>Anagram</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.IPAdress</td>
+                <td>@item.SearchTime</td>
+                <td>@item.SearchedWord</td>
+                <td>@item.AnagramList</td>
+            </tr>
+        }
+
+    </tbody>
+
+</table>
