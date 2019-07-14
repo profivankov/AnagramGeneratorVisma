@@ -17,7 +17,7 @@ namespace AnagramSolver.Tests
         public void Setup()
         {
             // Dictionary<string, List<string>> wordList = _wordRepository.GetDictionary();
-            testObject = new BusinessLogic.AnagramSolver(new TestWordRepository(), 5); // max results = 5
+            testObject = new BusinessLogic.AnagramSolver(new TestWordRepository()); // max results = 5
             //file = new StreamReader(@"C:\Users\mantrimas\source\repos\zodynasVisma\zodynasVisma\zodynas.txt");
             testFile = new StreamReader(@"C:\Users\mantrimas\source\repos\zodynasVisma\zodynasVisma\zodynasfortesting.txt"); // not used
             testList = new List<string>() { "alus", "sula", "labas", "balas" };

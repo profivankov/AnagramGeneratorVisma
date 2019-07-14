@@ -10,6 +10,6 @@ namespace AnagramSolver.WebApp.Models
         public string IPAdress { get; set; }
         public DateTime SearchTime { get; set; }
         public string SearchedWord { get; set; }
-        public string AnagramList { get; set; }
+        public List<string> AnagramList { get; set; }
     }
 }

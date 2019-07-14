@@ -37,7 +37,7 @@ namespace AnagramSolver.WebApp.Controllers
             Response.Cookies.Append("searchedWord", request.Input); // add cookie
             var userIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
             var resultList = GetWords(request.Input);
-            userLogRepository.StoreUserInfo(new AnagramSolver.Models.UserLogModel { SearchedWord = request.Input, IPAdress = userIpAddress, AnagramWord = "", SearchTime = DateTime.Now });
+            userLogRepository.StoreUserInfo(new AnagramSolver.Models.UserLogModel { SearchedWord = request.Input, IPAdress = userIpAddress, AnagramWord = null, SearchTime = DateTime.Now });
 
             return View(resultList);
         }

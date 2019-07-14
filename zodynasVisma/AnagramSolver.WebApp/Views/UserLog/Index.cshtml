@@ -8,7 +8,7 @@
     var myCookies = @HttpContextAccessor.HttpContext.Request.Cookies["searchedWord"];
 }
 
-<h1>User Log</h1> 
+<h1>User Log</h1>
 <hr />
 <div class="alert alert-success">Last searched words: @myCookies</div>
 
@@ -29,7 +29,28 @@
                 <td>@item.IPAdress</td>
                 <td>@item.SearchTime</td>
                 <td>@item.SearchedWord</td>
-                <td>@item.AnagramList</td>
+                <td>
+                    @foreach (var listItem in item.AnagramList)
+                    {
+                        <li>@listItem</li>
+                    }
+                    @*<div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse1">Anagrams</a>
+                    </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse">
+                        @foreach (var listItem in item.AnagramList)
+                        {
+                            <div class="panel-body">@listItem</div>
+                        }
+                    <div class="panel-footer">Panel Footer</div>
+                </div>
+            </div>
+        </div>*@
+                </td>
             </tr>
         }
 

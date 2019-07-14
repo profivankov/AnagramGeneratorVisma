@@ -8,7 +8,7 @@ namespace AnagramSolver.Tests
 {
     public class TestWordRepository : IWordRepository
     {
-        public Dictionary<string, List<string>> GetDictionary(StreamReader file)
+        public Dictionary<string, List<string>> GetDictionary()
         {
             return new Dictionary<string, List<string>>
                 {
@@ -18,6 +18,11 @@ namespace AnagramSolver.Tests
                     { "aabls", new List<string> {"labas", "balas"} }
                 };
             
+        }
+
+        public List<string> SearchRepository(string input)
+        {
+            throw new NotImplementedException();
         }
     }
 }
