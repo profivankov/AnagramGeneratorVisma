@@ -9,10 +9,14 @@ namespace AnagramSolver.BusinessLogic
 {
     public class SQLUserLogRepository : IUserLogRepository
     {
-        //public UserLogModel userLogModel;
+        private readonly string _connectionString;
+        public SQLUserLogRepository(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
         public void StoreUserInfo(UserLogModel userLog)
         {
-            using (var connection = new SqlConnection("Server=LT-LIT-SC-0116\\ANAGRAMSOLVER; Database=Dictionary; Integrated Security=true"))
+            using (var connection = new SqlConnection(_connectionString))
             {
                 var splitInput = userLog.SearchedWord.Split(" ");
 
@@ -37,7 +41,7 @@ namespace AnagramSolver.BusinessLogic
         {
             // var userLog = new UserLogModel();
             var userLogList = new List<UserLogModel>();
-            using (var connection = new SqlConnection("Server=LT-LIT-SC-0116\\ANAGRAMSOLVER; Database=Dictionary; Integrated Security=true"))
+            using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
                 var cmd = new SqlCommand("SELECT UserLog.User_IP, UserLog.Search_Time, UserLog.User_Searched_Word, Words.Word FROM ((UserLog INNER JOIN CachedWords ON UserLog.User_Searched_Word = CachedWords.Searched_Word) INNER JOIN Words ON CachedWords.Anagram_Word_ID = Words.ID) WHERE UserLog.User_IP =@userIP ORDER BY Search_Time", connection);

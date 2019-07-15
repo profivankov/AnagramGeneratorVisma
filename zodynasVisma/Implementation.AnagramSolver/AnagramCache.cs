@@ -14,9 +14,14 @@ namespace AnagramSolver.BusinessLogic
 {
     public class AnagramCache : ICacheRepository
     {
+        private readonly string _connectionString;
+        public AnagramCache(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
         public void AddCacheToRepository(IList<string> list, string word)
         {
-            using (var connection = new SqlConnection("Server=LT-LIT-SC-0116\\ANAGRAMSOLVER; Database=Dictionary; Integrated Security=true"))
+            using (var connection = new SqlConnection(_connectionString))
             {
                 var resultList = new List<int>();
                 var anagramList = ReadAnagramIDs(list); 
@@ -48,7 +53,7 @@ namespace AnagramSolver.BusinessLogic
             var resultLists = new CacheModel { IDList = new List<int>(), WordList = new List<string>() };
             var list = receivedList.Distinct();
             //var resultList = new List<int>();
-            using (var connection = new SqlConnection("Server=LT-LIT-SC-0116\\ANAGRAMSOLVER; Database=Dictionary; Integrated Security=true"))
+            using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
@@ -78,7 +83,7 @@ namespace AnagramSolver.BusinessLogic
             var list = new List<int>();
             var resultList = new List<string>();
             //can use ReadAnagramIDS for this I think
-            using (var connection = new SqlConnection("Server=LT-LIT-SC-0116\\ANAGRAMSOLVER; Database=Dictionary; Integrated Security=true"))
+            using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
                 var cmd = new SqlCommand("SELECT Anagram_Word_ID FROM CachedWords WHERE Searched_Word=@word", connection);
@@ -95,7 +100,7 @@ namespace AnagramSolver.BusinessLogic
                 dr.Close();
             }
 
-            using (var connection = new SqlConnection("Server=LT-LIT-SC-0116\\ANAGRAMSOLVER; Database=Dictionary; Integrated Security=true"))
+            using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
                 var cmd = new SqlCommand("SELECT Word FROM Words WHERE ID=@ID", connection);

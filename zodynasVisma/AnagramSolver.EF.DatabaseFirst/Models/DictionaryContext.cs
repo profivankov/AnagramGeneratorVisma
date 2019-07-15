@@ -1,13 +1,19 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Newtonsoft.Json.Linq;
 
 namespace AnagramSolver.EF.DatabaseFirst.Models
 {
     public partial class DictionaryContext : DbContext
     {
+        private readonly string _connectionString;
+
         public DictionaryContext()
         {
+            var file = System.IO.File.ReadAllText(@"appsettings.json");
+            var json = JObject.Parse(file);
+            _connectionString = (string)json["ConnectionString"];
         }
 
         public DictionaryContext(DbContextOptions<DictionaryContext> options)
@@ -24,7 +30,7 @@ namespace AnagramSolver.EF.DatabaseFirst.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=LT-LIT-SC-0116\\ANAGRAMSOLVER;Database=Dictionary;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer(_connectionString);
             }
         }
 

@@ -14,12 +14,12 @@ namespace AnagramSolver.BusinessLogic
     {
         private Dictionary<string, List<string>> Dict;
 
-        private readonly string connectionString;
+        private readonly string _connectionString;
         
 
-        public SQLWordRepository()
+        public SQLWordRepository(string connectionString)
         {
-            connectionString = "Server=LT-LIT-SC-0116\\ANAGRAMSOLVER; Database=Dictionary; Integrated Security=true"; //ConfigurationManager.AppSettings["connectionString"];
+            _connectionString = connectionString; //ConfigurationManager.AppSettings["connectionString"];
             Dict = GetDictionary();
         }
         public Dictionary<string, List<string>> GetDictionary()
@@ -29,7 +29,7 @@ namespace AnagramSolver.BusinessLogic
             { 
             Console.OutputEncoding = Encoding.UTF8;
             
-                using (var connection = new SqlConnection(connectionString))
+                using (var connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
 
@@ -78,7 +78,7 @@ namespace AnagramSolver.BusinessLogic
         public List<string> SearchRepository(string input) //good place for this? have to add it to interface so I can access through controller
         {
             var resultList = new List<string>();
-            using (var connection = new SqlConnection("Server=LT-LIT-SC-0116\\ANAGRAMSOLVER; Database=Dictionary; Integrated Security=true"))
+            using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
                 var cmd = new SqlCommand("SELECT * FROM Words WHERE Word LIKE '%' + @word+ '%'", connection);
