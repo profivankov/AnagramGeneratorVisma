@@ -39,7 +39,7 @@ namespace AnagramSolver.WebApp
             services.AddSingleton<IWordRepository>(x=> new EFWordRepository());
             services.AddTransient<IAnagramSolver, BusinessLogic.AnagramSolver>();
             services.AddTransient<ICacheRepository>(x=> new EFCacheRepository());
-            services.AddTransient<IUserLogRepository>(x=> new SQLUserLogRepository(_connectionString));
+            services.AddTransient<IUserLogRepository>(x=> new EFUserLogRepository());
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

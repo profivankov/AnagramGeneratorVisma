@@ -32,7 +32,7 @@ namespace AnagramSolver.EF.DatabaseFirst.Repositories
 
             foreach (var item in resultList)
             {
-                CachedWords cachedWords = new CachedWords()
+                var cachedWords = new CachedWords()
                 {
                     AnagramWordId = item,
                     SearchedWord = word,
