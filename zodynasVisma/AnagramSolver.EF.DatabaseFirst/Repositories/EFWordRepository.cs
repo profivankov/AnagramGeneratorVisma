@@ -9,20 +9,20 @@ namespace AnagramSolver.EF.DatabaseFirst.Repositories
 {
     public class EFWordRepository : IWordRepository
     {
-        private DictionaryContext db;
-        private Dictionary<string, List<string>> Dict;
+        private DictionaryContext _dbContext;
+        private Dictionary<string, List<string>> _dictionary;
 
-        public EFWordRepository()
+        public EFWordRepository(DictionaryContext context)
         {
-            db = new DictionaryContext();
-            Dict = GetDictionary();
+            _dbContext = context;
+            _dictionary = GetDictionary();
         }
         public Dictionary<string, List<string>> GetDictionary()
         {
             Dictionary<string, List<string>> wordList = new Dictionary<string, List<string>>();
-            if (Dict == null)
+            if (_dictionary == null)
             {
-                var query = db.Words.Select(w => w.Word).ToList();
+                var query = _dbContext.Words.Select(w => w.Word).ToList();
                 var temp = "";
                 foreach (var word in query)
                 {
@@ -50,12 +50,12 @@ namespace AnagramSolver.EF.DatabaseFirst.Repositories
             }
             else
             {
-                return Dict;
+                return _dictionary;
             }
         }
         public List<string> SearchRepository(string input)
         {
-            var query = db.Words.Select(w => w.Word).Where(w => w.Contains(input)).ToList();
+            var query = _dbContext.Words.Select(w => w.Word).Where(w => w.Contains(input)).ToList();
             return query;
         }
     }

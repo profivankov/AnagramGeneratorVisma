@@ -19,10 +19,9 @@ namespace AnagramSolver.WebApp.Controllers
         {
             var userLogList = userLogRepository.GetUserLog(HttpContext.Connection.RemoteIpAddress.ToString());
             List<UserLogViewModel> userLogViewList = new List<UserLogViewModel>();
-            UserLogViewModel userLogView = new UserLogViewModel();
             foreach (var userLog in userLogList)
             {
-                userLogView = new UserLogViewModel { IPAdress = userLog.IPAdress, AnagramList = userLog.AnagramWord, SearchedWord = userLog.SearchedWord, SearchTime = userLog.SearchTime };
+                var userLogView = new UserLogViewModel { IPAdress = userLog.IPAdress, AnagramList = userLog.AnagramWord, SearchedWord = userLog.SearchedWord, SearchTime = userLog.SearchTime };
                 userLogViewList.Add(userLogView);
             }
             return View(userLogViewList);

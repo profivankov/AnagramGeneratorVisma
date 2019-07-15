@@ -1,28 +1,22 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using AnagramSolver.BusinessLogic;
-using AnagramSolver.Contracts;
-using AnagramSolver.EF.DatabaseFirst.Repositories;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using AnagramSolver.EF.DatabaseFirst.Models;
-using Microsoft.EntityFrameworkCore;
 
-namespace AnagramSolver.WebApp
+namespace AnagramSolver.EF.CodeFirst
 {
     public class Startup
     {
-        private string _connectionString;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            var file = System.IO.File.ReadAllText(@"appsettings.json");
-            var json = JObject.Parse(file);
-            _connectionString = (string)json["ConnectionString"];
         }
 
         public IConfiguration Configuration { get; }
@@ -36,19 +30,8 @@ namespace AnagramSolver.WebApp
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            //Configuration.GetValue
-            //Configuration.GetConnectionString
-            services.AddDbContext<DictionaryContext>(options =>
-            {
-                options.UseSqlServer(Configuration.GetConnectionString("EfDfConnection"));
-            });
 
-            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>(); // for cookies
-            services.AddSingleton<IWordRepository, EFWordRepository>();
-            //services.AddSingleton<IWordRepository>( x= > new SQLWordRepository(Configuration["SqldatabaseString"]));
-            services.AddTransient<IAnagramSolver, BusinessLogic.AnagramSolver>();
-            services.AddTransient<ICacheRepository>(x=> new EFCacheRepository());
-            services.AddTransient<IUserLogRepository>(x=> new EFUserLogRepository());
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -69,15 +52,11 @@ namespace AnagramSolver.WebApp
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/"); 
-                    
-
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
