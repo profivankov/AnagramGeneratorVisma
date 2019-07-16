@@ -48,7 +48,6 @@ namespace AnagramSolver.BusinessLogic
                 cmd.Parameters.Add(new SqlParameter("@userIP", SqlDbType.NVarChar));
                 cmd.Parameters[0].Value = userIP;
                 var dr = cmd.ExecuteReader();
-                var temp = "";
 
                 if (dr.HasRows)
                 {

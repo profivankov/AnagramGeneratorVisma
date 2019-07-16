@@ -33,7 +33,7 @@ namespace AnagramSolver.BusinessLogic
         {
             var counter = 0;
             _maxResultAmount = MaxResultAmount();
-            var wordList = _wordRepository.GetDictionary();
+            var wordList = _wordRepository.GetDictionary(100);
 
             foreach (string splitWord in input)
             {

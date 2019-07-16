@@ -8,14 +8,13 @@ namespace AnagramSolver.WebApp.Models
     public class DictionaryViewModel
     {
         public IEnumerable<string> Items { get; set; }
-        //public List<string> WordList { get; set; }
         public Pager Pager { get; set; }
         public string[] Input { get; set; }
     }
 
     public class Pager
     {
-        public Pager (int totalItems, int pageNum, int pageSize = 100)
+        public Pager (int pageNum, int totalItems = 834, int pageSize = 100)
         {
             // calculate total, start and end pages
             var totalPages = (int)Math.Ceiling((decimal)totalItems / (decimal)pageSize);

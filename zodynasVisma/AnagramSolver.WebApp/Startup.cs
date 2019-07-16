@@ -14,7 +14,6 @@ namespace AnagramSolver.WebApp
 {
     public class Startup
     {
-        private string _connectionString;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;

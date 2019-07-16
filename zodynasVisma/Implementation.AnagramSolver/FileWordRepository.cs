@@ -15,7 +15,7 @@ namespace AnagramSolver.BusinessLogic
         {
             file = new StreamReader(@"C:\Users\mantrimas\source\repos\zodynasVisma\zodynasVisma\zodynas.txt");
         }
-        public Dictionary<string, List<string>> GetDictionary()
+        public Dictionary<string, List<string>> GetDictionary(int pageNum)
         {
             Console.OutputEncoding = Encoding.UTF8;
             

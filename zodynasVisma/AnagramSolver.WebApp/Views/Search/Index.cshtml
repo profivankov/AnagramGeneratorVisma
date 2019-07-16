@@ -3,8 +3,8 @@
     ViewData["Title"] = "Home Page";
 }
 
-<h2>Search results: </h2>
-<br>
+<h1>Search for words</h1>
+<hr />
 <ul>
     @foreach (string word in Model.WordList)
     {
@@ -14,7 +14,7 @@
 
 <form asp-action="Index" asp-controller="Search">
     
-    <input asp-for="Input" placeholder="search words" />
+    <input asp-for="Input"/>
     <input type="submit" id="Search" />
 </form>
 

@@ -7,7 +7,7 @@ namespace AnagramSolver.Contracts
 {
     public interface IWordRepository
     {
-        Dictionary<string, List<string>> GetDictionary();
+        Dictionary<string, List<string>> GetDictionary(int pageNum);
         List<string> SearchRepository(string input);
     }
 }

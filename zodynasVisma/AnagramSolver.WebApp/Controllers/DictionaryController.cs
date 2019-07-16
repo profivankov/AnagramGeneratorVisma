@@ -18,13 +18,13 @@ namespace AnagramSolver.WebApp.Controllers
 
         public IActionResult Index(int pageNum)
         {
-            var list = _wordRepository.GetDictionary().Values.SelectMany(x => x); //.ToList();
+            var list = _wordRepository.GetDictionary(pageNum).Values.SelectMany(x => x); //.ToList();
 
-            var pager = new Pager(list.Count(), pageNum);
+            var pager = new Pager(pageNum);
 
             var viewModel = new DictionaryViewModel
             {
-                Items = list.Skip((pageNum - 1) * 100).Take(pager.PageSize),
+                Items = list, //.Skip((pageNum - 1) * 100).Take(pager.PageSize),
                 Pager = pager
             };
 

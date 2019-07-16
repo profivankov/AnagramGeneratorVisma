@@ -1,29 +1,36 @@
 ﻿@model DictionaryViewModel
 @{
-	ViewData["Title"] = "Dictionary";
+    ViewData["Title"] = "Dictionary";
 }
+
+<style>
+    input { /*yra css faile inputstyle ir kai padarau class="button" it doesnt work*/
+        background: none !important;
+        border: none;
+        padding: 0 !important;
+        /*optional*/
+        font-family: arial,sans-serif; /*input has OS specific font-family*/
+        color: #069;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+</style>
 
 <html>
 <head>
-	<title>ASP.NET MVC - Pagination Example</title>
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    
 </head>
 <body>
     <h1>Dictionary</h1>
-
+    <hr />
     <!-- items being paged -->
     <ul>
         @foreach (var element in Model.Items)
         {
-            //<li>@element</li>
-
             <li>
-                <form asp-action="Index" asp-controller="AnagramSolver">
-                    <input asp-for="Input" value="@element"/>
-                    <input type="submit" id="@element" />
+                <form method="post" asp-controller="AnagramSolver" asp-action="Index">
+                    <input class="inputstyle" type="submit" alt="@element" asp-for="Input" value="@element">
                 </form>
-
-                @*<a href="~/AnagramSolver/Index/@element">@element</a>*@
             </li>
         }
     </ul>

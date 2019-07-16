@@ -15,14 +15,12 @@ namespace AnagramSolver.EF.DatabaseFirst.Repositories
         public EFWordRepository(DictionaryContext dbContext)
         {
             _dbContext = dbContext;
-            _dictionary = GetDictionary();
+            //_dictionary = GetDictionary();
         }
-        public Dictionary<string, List<string>> GetDictionary()
+        public Dictionary<string, List<string>> GetDictionary(int pageNum)
         {
             Dictionary<string, List<string>> wordList = new Dictionary<string, List<string>>();
-            if (_dictionary == null)
-            {
-                var query = _dbContext.Words.Select(w => w.Word).ToList();
+                var query = _dbContext.Words.Select(w => w.Word).Skip(pageNum * 100).Take(100).ToList();
                 var temp = "";
                 foreach (var word in query)
                 {
@@ -47,12 +45,9 @@ namespace AnagramSolver.EF.DatabaseFirst.Repositories
                 }
 
                 return wordList;
-            }
-            else
-            {
-                return _dictionary;
-            }
         }
+
+
         public List<string> SearchRepository(string input)
         {
             var query = _dbContext.Words.Select(w => w.Word).Where(w => w.Contains(input)).ToList();
