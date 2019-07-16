@@ -20,7 +20,7 @@ namespace AnagramSolver.Console
                 throw new Exception(String.Format("Incorrect word amount")); // negaliu leist useriui iš naujo įrašinėt žodžių nes console blogai nuskaito LT raides 
 
 
-            IWordRepository _wordRepository = new SQLWordRepository();
+            IWordRepository _wordRepository = new SQLWordRepository("");
 
             string[] myWords = args;
             var object1 = new BusinessLogic.AnagramSolver(_wordRepository);

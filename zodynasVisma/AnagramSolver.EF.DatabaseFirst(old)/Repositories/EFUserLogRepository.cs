@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AnagramSolver.Contracts;
-using AnagramSolver.EF.DatabaseFirst.Entities;
+using AnagramSolver.EF.DatabaseFirst.Models;
 using AnagramSolver.Models;
 
 namespace AnagramSolver.EF.DatabaseFirst.Repositories
@@ -11,9 +11,10 @@ namespace AnagramSolver.EF.DatabaseFirst.Repositories
     public class EFUserLogRepository : IUserLogRepository
     {
         private DictionaryContext _dbContext;
-        public EFUserLogRepository(DictionaryContext dbContext)
+        public EFUserLogRepository()
         {
-            _dbContext = dbContext;
+            _dbContext = new DictionaryContext();
+
         }
         public List<UserLogModel> GetUserLog(string userIP)
         {
@@ -99,8 +100,8 @@ namespace AnagramSolver.EF.DatabaseFirst.Repositories
                 userLog.UserIp = receivedUserLog.IPAdress;
                 userLog.SearchTime = receivedUserLog.SearchTime;
                 userLog.UserSearchedWord = word;
-                _dbContext.UserLog.Add(userLog);
-                _dbContext.SaveChanges();
+                db.UserLog.Add(userLog);
+                db.SaveChanges();
             }
         }
     }

@@ -1,5 +1,5 @@
 ﻿using AnagramSolver.Contracts;
-using AnagramSolver.EF.DatabaseFirst.Entities;
+using AnagramSolver.EF.DatabaseFirst.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +12,9 @@ namespace AnagramSolver.EF.DatabaseFirst.Repositories
         private DictionaryContext _dbContext;
         private Dictionary<string, List<string>> _dictionary;
 
-        public EFWordRepository(DictionaryContext dbContext)
+        public EFWordRepository(DictionaryContext context)
         {
-            _dbContext = dbContext;
+            _dbContext = context;
             _dictionary = GetDictionary();
         }
         public Dictionary<string, List<string>> GetDictionary()

@@ -7,9 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using AnagramSolver.BusinessLogic;
 using AnagramSolver.Contracts;
 using AnagramSolver.EF.DatabaseFirst.Repositories;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using AnagramSolver.EF.DatabaseFirst.Models;
+using AnagramSolver.EF.DatabaseFirst.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace AnagramSolver.WebApp
@@ -20,9 +18,6 @@ namespace AnagramSolver.WebApp
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            var file = System.IO.File.ReadAllText(@"appsettings.json");
-            var json = JObject.Parse(file);
-            _connectionString = (string)json["ConnectionString"];
         }
 
         public IConfiguration Configuration { get; }
@@ -38,18 +33,20 @@ namespace AnagramSolver.WebApp
             });
             //Configuration.GetValue
             //Configuration.GetConnectionString
+
             services.AddDbContext<DictionaryContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("EfDfConnection"));
             });
-
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>(); // for cookies
-            services.AddSingleton<IWordRepository, EFWordRepository>();
-            //services.AddSingleton<IWordRepository>( x= > new SQLWordRepository(Configuration["SqldatabaseString"]));
             services.AddTransient<IAnagramSolver, BusinessLogic.AnagramSolver>();
-            services.AddTransient<ICacheRepository>(x=> new EFCacheRepository());
-            services.AddTransient<IUserLogRepository>(x=> new EFUserLogRepository());
+            services.AddScoped<IWordRepository, EFWordRepository>();
+            services.AddTransient<ICacheRepository, EFCacheRepository>();
+            services.AddTransient<IUserLogRepository, EFUserLogRepository>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            //services.AddSingleton<IWordRepository>( x= > new SQLWordRepository(Configuration["SqldatabaseString"]));
+            //services.AddTransient<ICacheRepository>(x=> new AnagramCache(Configuration.GetConnectionString("SqldatabaseString")));
+            //services.AddTransient<IUserLogRepository>(x=> new SQLUserLogRepository("SqldatabaseString"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AnagramSolver.Contracts;
-using AnagramSolver.EF.DatabaseFirst.Entities;
+using AnagramSolver.EF.DatabaseFirst.Models;
 using AnagramSolver.Models;
 
 namespace AnagramSolver.EF.DatabaseFirst.Repositories
 {
     public class EFCacheRepository : ICacheRepository
     {
-        private DictionaryContext _dbContext;
-        public EFCacheRepository(DictionaryContext dbContext)
+        private DictionaryContext db;
+        public EFCacheRepository()
         {
-            _dbContext = dbContext;
+            db = new DictionaryContext();
+
         }
 
         public void AddCacheToRepository(IList<string> list, string word)
@@ -36,8 +37,8 @@ namespace AnagramSolver.EF.DatabaseFirst.Repositories
                     AnagramWordId = item,
                     SearchedWord = word,
                 };
-                _dbContext.CachedWords.Add(cachedWords);
-                _dbContext.SaveChanges();
+                db.CachedWords.Add(cachedWords);
+                db.SaveChanges();
             }
         }
 
@@ -45,13 +46,13 @@ namespace AnagramSolver.EF.DatabaseFirst.Repositories
         {
             var resultList = new List<List<string>>();
 
-            var query = from words in _dbContext.CachedWords
+            var query = from words in db.CachedWords
                         where words.SearchedWord == input
                         select words.AnagramWordId;
 
             foreach (var ID in query.ToList<int?>())
             {
-                var queryResults = from words in _dbContext.Words
+                var queryResults = from words in db.Words
                                    where words.Id == ID
                                    select words.Word;
 
@@ -68,7 +69,7 @@ namespace AnagramSolver.EF.DatabaseFirst.Repositories
             var resultLists = new CacheModel { IDList = new List<int>(), WordList = new List<string>() };
             foreach (var word in distinctList)
             {
-                var queryResults = from words in _dbContext.Words
+                var queryResults = from words in db.Words
                                    where words.Word == word
                                    select words.Id;
                 foreach (var item in queryResults.ToList<int>())  // cj nereik list cuz each words has only 1 ID

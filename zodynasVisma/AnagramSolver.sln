@@ -17,9 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnagramSolver.Client", "Ana
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnagramSolver.Database", "AnagramSolver.Database\AnagramSolver.Database.csproj", "{EBA39447-CCB7-48E3-A5D2-CAB69A9F93FE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnagramSolver.EF.DatabaseFirst", "AnagramSolver.EF.DatabaseFirst\AnagramSolver.EF.DatabaseFirst.csproj", "{2335253C-2DC5-44C3-BFBD-8DC04A49CF07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnagramSolver.EF.CodeFirst", "AnagramSolver.EF.CodeFirst\AnagramSolver.EF.CodeFirst.csproj", "{1BDD70E9-89DC-4168-AA57-55EFA56B9DE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnagramSolver.EF.CodeFirst", "AnagramSolver.EF.CodeFirst\AnagramSolver.EF.CodeFirst.csproj", "{1BDD70E9-89DC-4168-AA57-55EFA56B9DE0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnagramSolver.EF.DatabaseFirst", "AnagramSolver.EF.DatabaseFirst\AnagramSolver.EF.DatabaseFirst.csproj", "{7D4FF133-5D69-4893-83A3-A3245AF826E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -85,14 +85,6 @@ Global
 		{EBA39447-CCB7-48E3-A5D2-CAB69A9F93FE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EBA39447-CCB7-48E3-A5D2-CAB69A9F93FE}.Release|x64.ActiveCfg = Release|x64
 		{EBA39447-CCB7-48E3-A5D2-CAB69A9F93FE}.Release|x64.Build.0 = Release|x64
-		{2335253C-2DC5-44C3-BFBD-8DC04A49CF07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2335253C-2DC5-44C3-BFBD-8DC04A49CF07}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2335253C-2DC5-44C3-BFBD-8DC04A49CF07}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{2335253C-2DC5-44C3-BFBD-8DC04A49CF07}.Debug|x64.Build.0 = Debug|Any CPU
-		{2335253C-2DC5-44C3-BFBD-8DC04A49CF07}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2335253C-2DC5-44C3-BFBD-8DC04A49CF07}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2335253C-2DC5-44C3-BFBD-8DC04A49CF07}.Release|x64.ActiveCfg = Release|Any CPU
-		{2335253C-2DC5-44C3-BFBD-8DC04A49CF07}.Release|x64.Build.0 = Release|Any CPU
 		{1BDD70E9-89DC-4168-AA57-55EFA56B9DE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1BDD70E9-89DC-4168-AA57-55EFA56B9DE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BDD70E9-89DC-4168-AA57-55EFA56B9DE0}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -101,6 +93,14 @@ Global
 		{1BDD70E9-89DC-4168-AA57-55EFA56B9DE0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1BDD70E9-89DC-4168-AA57-55EFA56B9DE0}.Release|x64.ActiveCfg = Release|Any CPU
 		{1BDD70E9-89DC-4168-AA57-55EFA56B9DE0}.Release|x64.Build.0 = Release|Any CPU
+		{7D4FF133-5D69-4893-83A3-A3245AF826E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D4FF133-5D69-4893-83A3-A3245AF826E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D4FF133-5D69-4893-83A3-A3245AF826E4}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7D4FF133-5D69-4893-83A3-A3245AF826E4}.Debug|x64.Build.0 = Debug|Any CPU
+		{7D4FF133-5D69-4893-83A3-A3245AF826E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D4FF133-5D69-4893-83A3-A3245AF826E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D4FF133-5D69-4893-83A3-A3245AF826E4}.Release|x64.ActiveCfg = Release|Any CPU
+		{7D4FF133-5D69-4893-83A3-A3245AF826E4}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
