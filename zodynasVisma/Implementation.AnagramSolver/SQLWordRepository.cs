@@ -20,9 +20,9 @@ namespace AnagramSolver.BusinessLogic
         public SQLWordRepository(string connectionString)
         {
             _connectionString = connectionString; //ConfigurationManager.AppSettings["connectionString"];
-           // Dict = GetDictionary();
+           // Dict = GetDictionary(); figure out how to skip here
         }
-        public Dictionary<string, List<string>> GetDictionary(int pageNum)
+        public Dictionary<string, List<string>> GetDictionary(int? pageNum)
         {
             Dictionary<string, List<string>> wordList = new Dictionary<string, List<string>>();
             if (Dict == null)

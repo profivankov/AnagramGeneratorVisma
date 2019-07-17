@@ -7,7 +7,7 @@ using AnagramSolver.Models;
 
 namespace AnagramSolver.BusinessLogic
 {
-    public class SQLUserLogRepository : IUserLogRepository
+    public class SQLUserLogRepository 
     {
         private readonly string _connectionString;
         public SQLUserLogRepository(string connectionString)
@@ -39,7 +39,6 @@ namespace AnagramSolver.BusinessLogic
 
         public List<UserLogModel> GetUserLog(string userIP)
         {
-            // var userLog = new UserLogModel();
             var userLogList = new List<UserLogModel>();
             using (var connection = new SqlConnection(_connectionString))
             {

@@ -1,4 +1,5 @@
 ﻿using AnagramSolver.Contracts;
+using AnagramSolver.EF.DatabaseFirst.Repositories;
 using AnagramSolver.WebApp.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -37,10 +38,11 @@ namespace AnagramSolver.WebApp.Controllers
             Response.Cookies.Append("searchedWord", request.Input); // add cookie
             var userIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
             var resultList = GetWords(request.Input);
-            userLogRepository.StoreUserInfo(new AnagramSolver.Models.UserLogModel { SearchedWord = request.Input, IPAdress = userIpAddress, AnagramWord = null, SearchTime = DateTime.Now });
+            userLogRepository.StoreUserInfo(userIpAddress, request.Input); //new AnagramSolver.Models.UserLogModelCF { SearchedWordID = anagramCache.SearchedWordID(request.Input), IPAdress = userIpAddress, AnagramWord = null, SearchTime = DateTime.Now
 
             return View(resultList);
         }
+
 
         private AnagramViewModel GetWords(string request) // find anagram ID's in DB and put them in a different table
         {
@@ -53,7 +55,7 @@ namespace AnagramSolver.WebApp.Controllers
 
                 if (cacheList.Count == 0) // if word isn't cached use get anagrams and cache
                 {
-                    var anagramList = new AnagramViewModel { WordList = anagramSolver.GetAnagrams(splitWord) };
+                    var anagramList = new AnagramViewModel { WordList = anagramSolver.GetAnagrams(splitInput) };
                     anagramCache.AddCacheToRepository(anagramList.WordList, word);
                     foreach (string anagramWord in anagramList.WordList)
                     {

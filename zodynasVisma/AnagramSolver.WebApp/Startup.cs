@@ -8,6 +8,7 @@ using AnagramSolver.BusinessLogic;
 using AnagramSolver.Contracts;
 using AnagramSolver.EF.DatabaseFirst.Repositories;
 using AnagramSolver.EF.DatabaseFirst.Entities;
+using AnagramSolver.EF.CodeFirst;
 using Microsoft.EntityFrameworkCore;
 
 namespace AnagramSolver.WebApp
@@ -35,13 +36,14 @@ namespace AnagramSolver.WebApp
 
             services.AddDbContext<DictionaryContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("EfDfConnection"));
+                options.UseSqlServer(Configuration.GetConnectionString("EfCfConnection"));
             });
+
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>(); // for cookies
             services.AddTransient<IAnagramSolver, BusinessLogic.AnagramSolver>();
-            services.AddScoped<IWordRepository, EFWordRepository>();
-            services.AddTransient<ICacheRepository, EFCacheRepository>();
-            services.AddTransient<IUserLogRepository, EFUserLogRepository>();
+            services.AddScoped<IWordRepository, EFCFWordRepository>();
+            services.AddTransient<ICacheRepository, EFCFCacheRepository>();
+            services.AddTransient<IUserLogRepository, EFCFUserLogRepository>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             //services.AddSingleton<IWordRepository>( x= > new SQLWordRepository(Configuration["SqldatabaseString"]));
             //services.AddTransient<ICacheRepository>(x=> new AnagramCache(Configuration.GetConnectionString("SqldatabaseString")));

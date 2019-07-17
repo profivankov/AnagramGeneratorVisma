@@ -5,7 +5,7 @@ namespace AnagramSolver.Contracts
 {
     public interface IUserLogRepository
     {
-        void StoreUserInfo(UserLogModel userLog);
+        void StoreUserInfo(string userIP, string input);
         List<UserLogModel> GetUserLog(string userIP);
     }
 }

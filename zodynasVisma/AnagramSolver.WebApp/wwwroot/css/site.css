@@ -29,7 +29,7 @@ body {
 }
 
 /*make submit button look like link*/
-inputstyle {
+.inputstyle {
     background: none !important;
     border: none;
     padding: 0 !important;

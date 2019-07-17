@@ -43,7 +43,6 @@ namespace AnagramSolver.WebApp.Models
             EndPage = endPage;
         }
 
-
         public int TotalItems { get; private set; }
         public int CurrentPage { get; private set; }
         public int PageSize { get; private set; }

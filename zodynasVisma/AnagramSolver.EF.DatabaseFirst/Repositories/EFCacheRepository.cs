@@ -10,8 +10,8 @@ namespace AnagramSolver.EF.DatabaseFirst.Repositories
 {
     public class EFCacheRepository : ICacheRepository
     {
-        private DictionaryContext _dbContext;
-        public EFCacheRepository(DictionaryContext dbContext)
+        private DictionaryContextDBF _dbContext;
+        public EFCacheRepository(DictionaryContextDBF dbContext)
         {
             _dbContext = dbContext;
         }

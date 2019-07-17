@@ -8,10 +8,10 @@ using AnagramSolver.Models;
 
 namespace AnagramSolver.EF.DatabaseFirst.Repositories
 {
-    public class EFUserLogRepository : IUserLogRepository
+    public class EFUserLogRepository 
     {
-        private DictionaryContext _dbContext;
-        public EFUserLogRepository(DictionaryContext dbContext)
+        private DictionaryContextDBF _dbContext;
+        public EFUserLogRepository(DictionaryContextDBF dbContext)
         {
             _dbContext = dbContext;
         }

@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace AnagramSolver.EF.DatabaseFirst.Entities
 {
-    public partial class DictionaryContext : DbContext
+    public partial class DictionaryContextDBF : DbContext
     {
-        public DictionaryContext()
+        public DictionaryContextDBF()
         {
         }
 
-        public DictionaryContext(DbContextOptions<DictionaryContext> options)
+        public DictionaryContextDBF(DbContextOptions<DictionaryContextDBF> options)
             : base(options)
         { }
 

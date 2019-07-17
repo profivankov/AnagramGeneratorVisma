@@ -1,18 +1,18 @@
 ﻿using AnagramSolver.Contracts;
-using AnagramSolver.EF.DatabaseFirst.Entities;
+using AnagramSolver.EF.CodeFirst;
+using AnagramSolver.EF.CodeFirst.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace AnagramSolver.EF.DatabaseFirst.Repositories
 {
-    public class EFWordRepository : IWordRepository
+    public class EFCFWordRepository : IWordRepository
     {
-        private DictionaryContextDBF _dbContext;
+        private DictionaryContext _dbContext;
 
-        public EFWordRepository(DictionaryContextDBF dbContext)
+        public EFCFWordRepository(DictionaryContext dbContext)
         {
             _dbContext = dbContext;
         }
