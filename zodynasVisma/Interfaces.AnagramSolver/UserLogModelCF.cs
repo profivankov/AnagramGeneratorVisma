@@ -8,7 +8,7 @@ namespace AnagramSolver.Models
     {
         public string IPAdress { get; set; }
         public DateTime SearchTime { get; set; }
-        public int SearchedWordID { get; set; }
+        public string SearchedWord { get; set; }
         public List<string> AnagramWord { get; set; }
     }
 }
