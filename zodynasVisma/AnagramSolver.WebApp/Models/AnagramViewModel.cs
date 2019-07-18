@@ -6,5 +6,6 @@ namespace AnagramSolver.WebApp.Models
     {
         public IList<string> WordList { get; set; }
         public string Input { get; set; }
+        public int searchesLeft { get; set; }
     }
 }

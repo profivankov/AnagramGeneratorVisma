@@ -1,5 +1,6 @@
 ﻿using AnagramSolver.EF.CodeFirst.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 
 namespace AnagramSolver.EF.CodeFirst
@@ -19,12 +20,13 @@ namespace AnagramSolver.EF.CodeFirst
         public virtual DbSet<UserLog> UserLog { get; set; }
         public virtual DbSet<Words> Words { get; set; }
         public virtual DbSet<SearchedWords> SearchedWords { get; set; }
+        public virtual DbSet<UserInfo> UserInfo { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=LT-LIT-SC-0116\\ANAGRAMSOLVER; Database=AnagramSolverDB; Integrated Security=true");
+                optionsBuilder.UseSqlServer("Server=LT-LIT-SC-0116\\ANAGRAMSOLVER;Database = AnagramSolverDB; Integrated Security = true");
                 //throw new Exception("No connection string.");
             }
         }
@@ -41,9 +43,6 @@ namespace AnagramSolver.EF.CodeFirst
                 .HasForeignKey(s => s.SearchedWordID);
 
                 entity.HasKey(e => e.CacheID);
-                //entity.Property(e => e.CacheID).HasColumnType("CacheID");
-                //entity.Property(e => e.SearchedWordID).HasColumnType("SearchedWordID");
-                //entity.Property(e => e.WordID).HasColumnType("WordID");
             });
 
             modelBuilder.Entity<UserLog>(entity =>
@@ -52,25 +51,26 @@ namespace AnagramSolver.EF.CodeFirst
                 .WithMany(g => g.UserLog)
                 .HasForeignKey(s => s.SearchedWordID);
 
+                entity.HasOne<UserInfo>(s => s.UserInfo)
+                .WithMany(g => g.UserLog)
+                .HasForeignKey(s => s.UserIP);
+
                 entity.HasKey(e => e.LogID);
-                //entity.Property(e => e.LogID).HasColumnType("LogID");
-                //entity.Property(e => e.UserIP).HasColumnType("UserIP");
-                //entity.Property(e => e.SearchedWordID).HasColumnType("SearchedWordID");
-                //entity.Property(e => e.SearchTime).HasColumnType("SearchTime");
             });
 
             modelBuilder.Entity<Words>(entity =>
             {
                 entity.HasKey(e => e.WordID);
-                //entity.Property(e => e.WordID).HasColumnType("WordID");
-                //entity.Property(e => e.Word).HasColumnType("Word").HasMaxLength(255);
             });
 
             modelBuilder.Entity<SearchedWords>(entity =>
             {
                 entity.HasKey(e => e.SearchedWordId);
-                //entity.Property(e => e.SearchedWordID).HasColumnType("SearchedWordID");
-                //entity.Property(e => e.SearchedWord).HasColumnType("SearchedWord").HasMaxLength(255);
+            });
+
+            modelBuilder.Entity<UserInfo>(entity =>
+            {
+                entity.HasKey(e => e.UserIP);
             });
         }
 

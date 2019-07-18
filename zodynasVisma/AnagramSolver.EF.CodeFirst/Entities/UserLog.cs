@@ -11,5 +11,6 @@ namespace AnagramSolver.EF.CodeFirst.Entities
         public DateTime SearchTime { get; set; }
 
         public SearchedWords SearchedWords { get; set; }
+        public UserInfo UserInfo { get; set; }
     }
 }

@@ -7,7 +7,7 @@ using AnagramSolver.EF.CodeFirst;
 using AnagramSolver.EF.CodeFirst.Entities;
 using AnagramSolver.Models;
 
-namespace AnagramSolver.EF.DatabaseFirst.Repositories
+namespace AnagramSolver.EF.CodeFirst.Repositories
 {
     public class EFCFCacheRepository : ICacheRepository
     {

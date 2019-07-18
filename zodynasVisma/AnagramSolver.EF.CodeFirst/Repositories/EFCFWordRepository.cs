@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
-namespace AnagramSolver.EF.DatabaseFirst.Repositories
+namespace AnagramSolver.EF.CodeFirst.Repositories
 {
     public class EFCFWordRepository : IWordRepository
     {

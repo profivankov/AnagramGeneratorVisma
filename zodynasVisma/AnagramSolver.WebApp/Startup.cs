@@ -10,6 +10,7 @@ using AnagramSolver.EF.DatabaseFirst.Repositories;
 using AnagramSolver.EF.DatabaseFirst.Entities;
 using AnagramSolver.EF.CodeFirst;
 using Microsoft.EntityFrameworkCore;
+using AnagramSolver.EF.CodeFirst.Repositories;
 
 namespace AnagramSolver.WebApp
 {
@@ -31,9 +32,7 @@ namespace AnagramSolver.WebApp
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            //Configuration.GetValue
-            //Configuration.GetConnectionString
-
+            
             services.AddDbContext<DictionaryContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("EfCfConnection"));
@@ -44,6 +43,7 @@ namespace AnagramSolver.WebApp
             services.AddScoped<IWordRepository, EFCFWordRepository>();
             services.AddTransient<ICacheRepository, EFCFCacheRepository>();
             services.AddTransient<IUserLogRepository, EFCFUserLogRepository>();
+            services.AddTransient<IUserInfoRepository, EFCFUserInfoRepository>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             //services.AddSingleton<IWordRepository>( x= > new SQLWordRepository(Configuration["SqldatabaseString"]));
             //services.AddTransient<ICacheRepository>(x=> new AnagramCache(Configuration.GetConnectionString("SqldatabaseString")));

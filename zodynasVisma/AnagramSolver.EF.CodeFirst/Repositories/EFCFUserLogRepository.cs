@@ -6,7 +6,7 @@ using AnagramSolver.EF.CodeFirst;
 using AnagramSolver.EF.CodeFirst.Entities;
 using AnagramSolver.Models;
 
-namespace AnagramSolver.EF.DatabaseFirst.Repositories
+namespace AnagramSolver.EF.CodeFirst.Repositories
 {
     public class EFCFUserLogRepository : IUserLogRepository
     {
@@ -38,6 +38,8 @@ namespace AnagramSolver.EF.DatabaseFirst.Repositories
             _dbContext.UserLog.Add(userLog);
             _dbContext.SaveChanges();
         }
+
+
 
         public void StoreUserInfo(UserLogModel userLog)
         {

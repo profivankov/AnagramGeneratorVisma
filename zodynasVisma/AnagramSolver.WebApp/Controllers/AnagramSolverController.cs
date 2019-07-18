@@ -15,29 +15,40 @@ namespace AnagramSolver.WebApp.Controllers
         private readonly IAnagramSolver anagramSolver;
         private ICacheRepository anagramCache;
         private IUserLogRepository userLogRepository;
+        private IUserInfoRepository userInfoRepository;
 
-        public AnagramSolverController(IAnagramSolver anagramSolver, ICacheRepository anagramCache, IUserLogRepository userLogRepository)
+        public AnagramSolverController(IAnagramSolver anagramSolver, ICacheRepository anagramCache, IUserLogRepository userLogRepository, IUserInfoRepository userInfoRepository)
         {
             this.anagramSolver = anagramSolver;
             this.anagramCache = anagramCache;
             this.userLogRepository = userLogRepository;
+            this.userInfoRepository = userInfoRepository;
         }
 
-        public IActionResult Index() 
+        public IActionResult Index(int searchesLeft) 
         {
-            return View(new AnagramViewModel { WordList = new List<string>() });
+            return View(new AnagramViewModel { WordList = new List<string>(), searchesLeft = searchesLeft });
         }
 
         [Route("AnagramSolver/Index/")]
         public IActionResult Index(AnagramViewModel request)  
         {
+            userInfoRepository.UpdateUserInfo();
+            var searchestLeft = userInfoRepository.GetUserInfo(); // get amount of searches left or create new user
+
             if (request.Input == null || request.Input.Length == 0)
             {
-                return Index();
+                return Index(searchestLeft);
             }
             Response.Cookies.Append("searchedWord", request.Input); // add cookie
-            var userIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
+
+
+            var userIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();  
+            
             var resultList = GetWords(request.Input);
+            
+            resultList.searchesLeft = searchestLeft;
+
             userLogRepository.StoreUserInfo(userIpAddress, request.Input); //new AnagramSolver.Models.UserLogModelCF { SearchedWordID = anagramCache.SearchedWordID(request.Input), IPAdress = userIpAddress, AnagramWord = null, SearchTime = DateTime.Now
 
             return View(resultList);
