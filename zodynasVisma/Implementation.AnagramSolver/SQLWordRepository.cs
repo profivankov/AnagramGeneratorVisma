@@ -10,7 +10,7 @@ using System.Configuration;
 
 namespace AnagramSolver.BusinessLogic
 {
-    public class SQLWordRepository : IWordRepository
+    public class SQLWordRepository //: IWordRepository
     {
         private Dictionary<string, List<string>> Dict;
 
@@ -97,6 +97,11 @@ namespace AnagramSolver.BusinessLogic
 
             }
             return resultList;
+        }
+
+        public int GetTotalItems()
+        {
+            throw new NotImplementedException();
         }
     }
 }

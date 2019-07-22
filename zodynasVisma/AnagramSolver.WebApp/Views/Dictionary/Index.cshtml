@@ -31,30 +31,30 @@
     @if (Model.Pager.EndPage > 1)
     {
         <ul class="pagination">
-            @if (Model.Pager.CurrentPage > 1)
+            @if (Model.Pager.CurrentPage > 0)
             {
-                <li>
-                    <a href="~/Dictionary/Index">First</a>
+                <li class="page-item">
+                    <a class="page-link" href="~/Dictionary/Index">First</a>
                 </li>
-                <li>
-                    <a href="~/Dictionary/Index?pageNum=@(Model.Pager.CurrentPage - 1)">Previous</a>
+                <li class="page-item">
+                    <a class="page-link" href="~/Dictionary/Index?pageNum=@(Model.Pager.CurrentPage - 1)">Previous</a>
                 </li>
             }
 
             @for (var pageNum = Model.Pager.StartPage; pageNum <= Model.Pager.EndPage; pageNum++)
             {
-                <li class="@(pageNum == Model.Pager.CurrentPage ? "active" : "")">
-                    <a href="~/Dictionary/Index?pageNum=@pageNum">@pageNum</a>
-                </li>
+        <li class="@(pageNum == Model.Pager.CurrentPage ? "page-item active" : "page-item")">
+            <a class="page-link" href="~/Dictionary/Index?pageNum=@pageNum">@pageNum</a>
+        </li>
             }
 
             @if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
             {
-                <li>
-                    <a href="~/Dictionary/Index?pageNum=@(Model.Pager.CurrentPage + 1)">Next</a>
+                <li class="page-item">
+                    <a class ="page-link" href="~/Dictionary/Index?pageNum=@(Model.Pager.CurrentPage + 1)">Next</a>
                 </li>
-                <li>
-                    <a href="~/Dictionary/Index?pageNum=@(Model.Pager.TotalPages)">Last</a>
+                <li class="page-item">
+                    <a class="page-link" href="~/Dictionary/Index?pageNum=@(Model.Pager.TotalPages)">Last</a>
                 </li>
             }
         </ul>

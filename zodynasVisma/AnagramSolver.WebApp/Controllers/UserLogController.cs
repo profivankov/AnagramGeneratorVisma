@@ -18,6 +18,7 @@ namespace AnagramSolver.WebApp.Controllers
         public IActionResult Index()
         {
             var userLogList = userLogRepository.GetUserLog(HttpContext.Connection.RemoteIpAddress.ToString());
+
             List<UserLogViewModel> userLogViewList = new List<UserLogViewModel>();
             foreach (var userLog in userLogList)
             {

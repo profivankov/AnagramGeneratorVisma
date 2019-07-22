@@ -37,7 +37,7 @@ namespace AnagramSolver.BusinessLogic
 
             foreach (string splitWord in input)
             {
-                var currentWord = string.Concat(splitWord.OrderBy(c => c));
+                var currentWord = string.Concat(splitWord.ToLower().OrderBy(c => c));
 
                 if (wordList.ContainsKey(currentWord))
                 {

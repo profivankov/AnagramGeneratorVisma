@@ -23,4 +23,16 @@
     <ProjectReference Include="..\Interfaces.AnagramSolver\AnagramSolver.Contracts.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\Dictionary\EditWord.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Dictionary\RemoveWord.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Dictionary\AddWord.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
+
 </Project>

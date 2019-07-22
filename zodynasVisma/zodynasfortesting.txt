@@ -3,3 +3,9 @@ sula	dkt	sulos	1
 dievas	dkt	dievai	18
 veidas	dkt	veidai	7
 vestis	vksm	vedasi	1
+Daiva	tikr. dkt	Daiva	11
+dalia	dkt	dalia	12
+dalia	dkt	daliai	3
+Dalia	tikr. dkt	Dalia	6
+Vaida	tikr. dkt	Vaida	1
+vadas	dkt	vadai	21

@@ -9,6 +9,7 @@ namespace AnagramSolver.Contracts
         int GetUserInfo();
         void NewUser();
         int AllowedSearches();
-        void UpdateUserInfo();
+        void UpdateSearchAmount();
+        void AddRemoveSearches(bool AddRemove);
     }
 }

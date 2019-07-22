@@ -15,11 +15,10 @@ namespace AnagramSolver.EF.CodeFirst.Repositories
         {
             _dbContext = dbContext;
         }
-        public List<UserLogModelCF> GetUserLog(string userIP)
+        public List<UserLogModel> GetUserLog(string userIP)
         {
-
             var userLogList = _dbContext.UserLog.Where(x => x.UserIP == userIP).Select(
-                x => new UserLogModelCF
+                x => new UserLogModel
                 {
                     IPAdress = x.UserIP,
                     SearchTime = x.SearchTime,
@@ -39,12 +38,6 @@ namespace AnagramSolver.EF.CodeFirst.Repositories
             _dbContext.SaveChanges();
         }
 
-
-
-        public void StoreUserInfo(UserLogModel userLog)
-        {
-            throw new NotImplementedException();
-        }
 
     }
 }

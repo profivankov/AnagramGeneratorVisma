@@ -12,10 +12,10 @@ namespace AnagramSolver.Database
     {
         static void Main(string[] args)
         {
-            var file = new StreamReader(@"C:\Users\mantrimas\source\repos\zodynasVisma\zodynasVisma\zodynas.txt");
+            var file = new StreamReader(@"C:\Users\mantrimas\source\repos\zodynasVisma\zodynasVisma\zodynasfortesting.txt");
             var wordRepository = new FileWordRepository();
             var wordList = wordRepository.GetDictionary(null);
-            var list = wordList.Values.SelectMany(x => x).ToList();
+            var list = wordList.Values.SelectMany(x => x).ToList().Distinct();
 
             var connect = new SqlConnection();
             connect.ConnectionString = "Server=LT-LIT-SC-0116\\ANAGRAMSOLVER; Database=AnagramSolverDB; Integrated Security=true;";

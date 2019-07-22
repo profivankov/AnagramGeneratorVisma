@@ -55,12 +55,10 @@ namespace AnagramSolver.EF.CodeFirst.Repositories
         public int AllowedSearches()
         {
             var userSearches = _dbContext.UserInfo.Where(x => x.UserIP == _userIP).Select(x => x.SearchesLeft).First();
-            //if user added some words, increase totalSearches, if removed words - decrease, so userSearches + addedWords (if word is deleted addedwords decreases)
-            //var totalSearches = userSearches;
             return userSearches;
         }
 
-        public void UpdateUserInfo()
+        public void UpdateSearchAmount()
         {
             var userInfo = new UserInfo()
             {
@@ -69,6 +67,33 @@ namespace AnagramSolver.EF.CodeFirst.Repositories
                 TotalSearches = _dbContext.UserInfo.Where(x => x.UserIP == _userIP).Select(x => x.TotalSearches).First() + 1
 
             };
+            _dbContext.UserInfo.Update(userInfo);
+            _dbContext.SaveChanges();
+        }
+
+        public void AddRemoveSearches(bool AddRemove)
+        {
+            var userInfo = new UserInfo();
+            if (AddRemove) // Add or Edit
+            {
+                userInfo = new UserInfo()
+                {
+                    UserIP = _userIP,
+                    SearchesLeft = _dbContext.UserInfo.Where(x => x.UserIP == _userIP).Select(x => x.SearchesLeft).First() + 1,
+                    TotalSearches = _dbContext.UserInfo.Where(x => x.UserIP == _userIP).Select(x => x.TotalSearches).First()
+
+                };
+            }
+            else //Remove
+            {
+                userInfo = new UserInfo()
+                {
+                    UserIP = _userIP,
+                    SearchesLeft = _dbContext.UserInfo.Where(x => x.UserIP == _userIP).Select(x => x.SearchesLeft).First() - 1,
+                    TotalSearches = _dbContext.UserInfo.Where(x => x.UserIP == _userIP).Select(x => x.TotalSearches).First()
+
+                };
+            }
             _dbContext.UserInfo.Update(userInfo);
             _dbContext.SaveChanges();
         }

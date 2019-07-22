@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Configuration;
 using System.IO;
+using System.Linq;
 using AnagramSolver.BusinessLogic;
 using AnagramSolver.Contracts;
+using AnagramSolver.EF.DatabaseFirst.Repositories;
+
 
 namespace AnagramSolver.Console
 {
@@ -20,16 +23,16 @@ namespace AnagramSolver.Console
                 throw new Exception(String.Format("Incorrect word amount")); // negaliu leist useriui iš naujo įrašinėt žodžių nes console blogai nuskaito LT raides 
 
 
-            IWordRepository _wordRepository = new SQLWordRepository("");
+            //IWordRepository _wordRepository = new EFCFWordRepository();
 
-            string[] myWords = args;
-            var object1 = new BusinessLogic.AnagramSolver(_wordRepository);
+            //string[] myWords = args;
+            //var object1 = new BusinessLogic.AnagramSolver(_wordRepository);
 
-            foreach (string s in object1.GetAnagrams(myWords))
-            {
-                System.Console.WriteLine("{0}", s); //yra using system bet doesn't work without it?
-            }
-        
+            //foreach (string s in object1.GetAnagrams(myWords))
+            //{
+            //    System.Console.WriteLine("{0}", s); //yra using system bet doesn't work without it?
+            //}
+
         }
     }
 }

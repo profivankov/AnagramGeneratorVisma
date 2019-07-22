@@ -8,7 +8,7 @@ using System.Text;
 
 namespace AnagramSolver.BusinessLogic
 {
-    public class FileWordRepository : IWordRepository
+    public class FileWordRepository //: IWordRepository
     {
         StreamReader file;
         public FileWordRepository()
@@ -57,6 +57,11 @@ namespace AnagramSolver.BusinessLogic
                 }
             }
             return wordList;
+        }
+
+        public int GetTotalItems()
+        {
+            throw new NotImplementedException();
         }
 
         public List<string> SearchRepository(string input)

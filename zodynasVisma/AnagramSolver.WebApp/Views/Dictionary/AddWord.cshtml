@@ -1,0 +1,39 @@
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@model WordViewModel
+@{
+    ViewData["Title"] = "Dictionary";
+}
+
+@{
+    var myCookies = @HttpContextAccessor.HttpContext.Request.Cookies["lastAddedWord"];
+
+}
+
+<html>
+<head>
+
+</head>
+<body>
+    <hr />
+    <h1>Add words</h1>
+    <hr />
+
+    <div class="alert alert-success">Last added word: @myCookies</div>
+
+    <form asp-action="AddWord" asp-controller="Dictionary">
+
+        <input asp-for="Input" />
+        <input type="submit" id="Add" />
+    </form>
+
+    <hr />
+    @if (Model.Input != null)
+    {
+        <h2>Word <b>@Model.Input</b> has been added!</h2>
+    }
+
+
+
+</body>
+</html>
+

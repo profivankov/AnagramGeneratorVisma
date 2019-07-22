@@ -9,5 +9,9 @@ namespace AnagramSolver.Contracts
     {
         Dictionary<string, List<string>> GetDictionary(int? pageNum);
         List<string> SearchRepository(string input);
+        int GetTotalItems();
+        bool AddWord(string input);
+        bool RemoveWord(string input);
+        bool EditWord(string wordToEdit, string newWord);
     }
 }

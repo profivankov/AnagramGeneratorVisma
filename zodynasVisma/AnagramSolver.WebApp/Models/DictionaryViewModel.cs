@@ -9,12 +9,12 @@ namespace AnagramSolver.WebApp.Models
     {
         public IEnumerable<string> Items { get; set; }
         public Pager Pager { get; set; }
-        public string[] Input { get; set; }
+        public string Input { get; set; }
     }
 
     public class Pager
     {
-        public Pager (int pageNum, int totalItems = 834, int pageSize = 100)
+        public Pager (int pageNum, int totalItems, int pageSize = 100)
         {
             // calculate total, start and end pages
             var totalPages = (int)Math.Ceiling((decimal)totalItems / (decimal)pageSize);
@@ -24,7 +24,7 @@ namespace AnagramSolver.WebApp.Models
             if (startPage <= 0)
             {
                 endPage -= (startPage - 1);
-                startPage = 1;
+                startPage = 0;
             }
             if (endPage > totalPages)
             {

@@ -33,14 +33,18 @@ namespace AnagramSolver.WebApp.Controllers
         [Route("AnagramSolver/Index/")]
         public IActionResult Index(AnagramViewModel request)  
         {
-            userInfoRepository.UpdateUserInfo();
+           
             var searchestLeft = userInfoRepository.GetUserInfo(); // get amount of searches left or create new user
 
-            if (request.Input == null || request.Input.Length == 0)
+            if (request.Input == null || request.Input.Length == 0 || searchestLeft <= 0)
             {
                 return Index(searchestLeft);
             }
             Response.Cookies.Append("searchedWord", request.Input); // add cookie
+
+            userInfoRepository.UpdateSearchAmount();
+            searchestLeft = userInfoRepository.GetUserInfo(); // get updated amount
+
 
 
             var userIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();  
@@ -49,7 +53,10 @@ namespace AnagramSolver.WebApp.Controllers
             
             resultList.searchesLeft = searchestLeft;
 
-            userLogRepository.StoreUserInfo(userIpAddress, request.Input); //new AnagramSolver.Models.UserLogModelCF { SearchedWordID = anagramCache.SearchedWordID(request.Input), IPAdress = userIpAddress, AnagramWord = null, SearchTime = DateTime.Now
+            foreach (string word in request.Input.Split(" "))
+            {
+                userLogRepository.StoreUserInfo(userIpAddress, word); //new AnagramSolver.Models.UserLogModelCF { SearchedWordID = anagramCache.SearchedWordID(request.Input), IPAdress = userIpAddress, AnagramWord = null, SearchTime = DateTime.Now
+            }
 
             return View(resultList);
         }

@@ -26,12 +26,8 @@ namespace AnagramSolver.EF.CodeFirst.Repositories
             {
                 throw new Exception("Zero");
             }
-            foreach (var entry in list)
-            {
-                var query = _dbContext.Words.Where(x => x.Word == entry).Select(x => x.WordID).FirstOrDefault(); // is there anyway to add foreach into this query
-                resultList.Add(query);
-            }
 
+            resultList = _dbContext.Words.Where(x => list.Contains(x.Word)).Select(x => x.WordID).ToList(); // is there anyway to add foreach into this query
 
             foreach (var item in resultList)
             {
@@ -56,7 +52,7 @@ namespace AnagramSolver.EF.CodeFirst.Repositories
                 };
                 _dbContext.SearchedWords.Add(searchedWords);
                 _dbContext.SaveChanges();
-                wordID = SearchedWordID(word);
+                wordID = searchedWords.SearchedWordId;
             }
 
             return wordID;
@@ -64,24 +60,14 @@ namespace AnagramSolver.EF.CodeFirst.Repositories
 
         public List<string> SearchCacheForAnagrams(string input)
         {
-            var resultList = new List<string>();
-            var wordID = SearchedWordID(input);
-            //var wordID = _dbContext.SearchedWords.Where(x => x.SearchedWord == input).Select(x => x.SearchedWordId).First(); // get SearchWord ID
-            // get anagram IDs from cahce with searchwordID
-            var anagramIDs = _dbContext.CachedWords.Where(x => x.SearchedWordID == wordID).Select(x => x.WordID).ToList();
-
-            foreach (var ID in anagramIDs) // get word for each ID
-            {
-                var queryResults = _dbContext.Words.Where(x => x.WordID == ID).Select(x => x.Word).First();
-                resultList.Add(queryResults);
-            }
-
-            return resultList;
+            // get anagrams  from cahce with searchwordID
+            var anagrams = _dbContext.CachedWords.Where(x => x.SearchedWordID == SearchedWordID(input)).Select(x => x.Words.Word).ToList();
+            return anagrams;
         }
 
         public int GetWordID(string input)
         {
-            return _dbContext.Words.Where(x => x.Word == input).Select(x => x.WordID).FirstOrDefault();
+            return _dbContext.Words.FirstOrDefault(x => x.Word == input).WordID;
         }
 
 

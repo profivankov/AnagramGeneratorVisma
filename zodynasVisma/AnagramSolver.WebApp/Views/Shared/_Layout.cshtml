@@ -14,14 +14,6 @@
     <link rel="stylesheet" href="~/css/site.css" />
 
 
-
-    @*<environment include="development">
-            <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-            <link rel="stylesheet" href="~/css/bootstrap.css" />
-            <link rel="stylesheet" href="~/css/site.css" />
-        </environment>*@
-
-
 </head>
 <body>
     <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
@@ -39,11 +31,13 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Dictionary <span class="caret"></span></a>
                         <div class="dropdown-menu">
-                            <a asp-controller="Home" asp-action="Index" class="dropdown-item">Dictionary</a>
+                            <a asp-controller="Dictionary" asp-action="Index" class="dropdown-item">Dictionary</a>
                             <div class="dropdown-divider"></div>
-                            <a asp-controller="Home" asp-action="Index" class="dropdown-item">Add</a>
+                            <a asp-controller="Dictionary" asp-action="AddWord" class="dropdown-item">Add</a>
                             <div class="dropdown-divider"></div>
-                            <a asp-controller="Home" asp-action="Index" class="dropdown-item">Remove</a>
+                            <a asp-controller="Dictionary" asp-action="RemoveWord" class="dropdown-item">Remove</a>
+                            <div class="dropdown-divider"></div>
+                            <a asp-controller="Dictionary" asp-action="EditWord" class="dropdown-item">Edit</a>
                         </div>
                     </li>
 
@@ -66,29 +60,6 @@
             </div>
         </div>
     </div>
-    @*<nav class="navbar navbar-inverse fixed-top navbar-dark bg-dark">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Home</a>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Anagram Solver</a></li>
-
-                        <li><a asp-area="" asp-controller="Dictionary" asp-action="Index">Dictionary</a></li>
-                        <li><a asp-area="" asp-controller="UserLog" asp-action="Index">User Log</a></li>
-                        <li><a asp-area="" asp-controller="Search" asp-action="Index">Search</a></li>
-
-                    </ul>
-                </div>
-            </div>
-        </nav>*@
 
     <partial name="_CookieConsentPartial" />
 
@@ -101,27 +72,5 @@
         </footer>
     </div>
 
-    @*<environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery"
-                crossorigin="anonymous"
-                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
-        </script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                crossorigin="anonymous"
-                integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd">
-        </script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
-    </environment>*@
-
-    @*@RenderSection("Scripts", required: false)*@
 </body>
 </html>

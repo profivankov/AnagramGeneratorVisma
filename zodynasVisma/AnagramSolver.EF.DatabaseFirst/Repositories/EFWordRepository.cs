@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AnagramSolver.EF.DatabaseFirst.Repositories
 {
-    public class EFWordRepository : IWordRepository
+    public class EFWordRepository// : IWordRepository
     {
         private DictionaryContextDBF _dbContext;
 
@@ -52,6 +52,11 @@ namespace AnagramSolver.EF.DatabaseFirst.Repositories
                 }
 
                 return wordList;
+        }
+
+        public int GetTotalItems()
+        {
+            throw new NotImplementedException();
         }
 
         public List<string> SearchRepository(string input)
