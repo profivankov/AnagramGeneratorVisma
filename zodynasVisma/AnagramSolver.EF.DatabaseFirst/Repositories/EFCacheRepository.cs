@@ -8,7 +8,7 @@ using AnagramSolver.Models;
 
 namespace AnagramSolver.EF.DatabaseFirst.Repositories
 {
-    public class EFCacheRepository : ICacheRepository
+    public class EFCacheRepository
     {
         private DictionaryContextDBF _dbContext;
         public EFCacheRepository(DictionaryContextDBF dbContext)

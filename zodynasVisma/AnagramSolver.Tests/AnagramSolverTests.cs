@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using AnagramSolver.Contracts;
+using NSubstitute;
+using NUnit.Framework;
 using System.Collections.Generic;
 using System.IO;
 
@@ -8,15 +10,15 @@ namespace AnagramSolver.Tests
     class AnagramSolverTests
     {
         private List<string> testList;
-        BusinessLogic.AnagramSolver testObject;
+
+        private IAnagramSolver _anagramSolver;
+        private BusinessLogic.AnagramSolver testObject;
 
 
         [SetUp]
         public void Setup()
         {
-            testObject = new BusinessLogic.AnagramSolver(new TestWordRepository()); // max results = 5
-            testList = new List<string>() { "alus", "sula", "labas", "balas" };
-
+            _anagramSolver = Substitute.For<IAnagramSolver>();
         }
         //[TearDown]
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AnagramSolver.Contracts;
 using AnagramSolver.EF.CodeFirst;
+using AnagramSolver.EF.CodeFirst.Contracts;
 using AnagramSolver.EF.CodeFirst.Entities;
 using AnagramSolver.Models;
 
@@ -17,52 +18,23 @@ namespace AnagramSolver.EF.CodeFirst.Repositories
             _dbContext = dbContext;
         }
 
-        public void AddCacheToRepository(IList<string> list, string word)
+        public void AddCachedWords(CachedWords cachedWords)
         {
-            var resultList = new List<int>();
-            var searchedWord = SearchedWordID(word);
-
-            if (searchedWord == 0)
-            {
-                throw new Exception("Zero");
-            }
-
-            resultList = _dbContext.Words.Where(x => list.Contains(x.Word)).Select(x => x.WordID).ToList(); // is there anyway to add foreach into this query
-
-            foreach (var item in resultList)
-            {
-                var cachedWords = new CachedWords()
-                {
-                    WordID = item,
-                    SearchedWordID = searchedWord
-                };
-                _dbContext.CachedWords.Add(cachedWords);
-                _dbContext.SaveChanges();
-            }
+            _dbContext.CachedWords.Add(cachedWords);
+            _dbContext.SaveChanges();
         }
 
-        public int SearchedWordID(string word) //either gets or adds searched word ID
+        public int AddSearchedWordID(SearchedWords searchedWords)
         {
-            var wordID = _dbContext.SearchedWords.Where(x => x.SearchedWord == word).Select(x => x.SearchedWordId).FirstOrDefault(); // gets searched word ID
-            if (wordID == 0) // if not returned, add word and ID to table
-            {
-                var searchedWords = new SearchedWords()
-                {
-                    SearchedWord = word
-                };
                 _dbContext.SearchedWords.Add(searchedWords);
                 _dbContext.SaveChanges();
-                wordID = searchedWords.SearchedWordId;
-            }
-
-            return wordID;
+                return searchedWords.SearchedWordId;
         }
 
-        public List<string> SearchCacheForAnagrams(string input)
+        public int GetSearchedWordID(string word) //either gets or adds searched word ID
         {
-            // get anagrams  from cahce with searchwordID
-            var anagrams = _dbContext.CachedWords.Where(x => x.SearchedWordID == SearchedWordID(input)).Select(x => x.Words.Word).ToList();
-            return anagrams;
+            var wordID = _dbContext.SearchedWords.Where(x => x.SearchedWord == word).Select(x => x.SearchedWordId).FirstOrDefault(); // gets searched word ID
+            return wordID;
         }
 
         public int GetWordID(string input)
@@ -70,6 +42,15 @@ namespace AnagramSolver.EF.CodeFirst.Repositories
             return _dbContext.Words.FirstOrDefault(x => x.Word == input).WordID;
         }
 
+        public List<int> GetAnagramIDs(IList<string> list)
+        {
+           return _dbContext.Words.Where(x => list.Contains(x.Word)).Select(x => x.WordID).ToList();
+        }
 
+        public List<string> SearchCacheForAnagrams(string input)
+        {
+            var anagrams = _dbContext.CachedWords.Where(x => x.SearchedWordID == GetSearchedWordID(input)).Select(x => x.Words.Word).ToList();
+            return anagrams;
+        }
     }
 }

@@ -11,6 +11,8 @@ using AnagramSolver.EF.DatabaseFirst.Entities;
 using AnagramSolver.EF.CodeFirst;
 using Microsoft.EntityFrameworkCore;
 using AnagramSolver.EF.CodeFirst.Repositories;
+using AnagramSolver.WebApp.Services;
+using AnagramSolver.EF.CodeFirst.Contracts;
 
 namespace AnagramSolver.WebApp
 {
@@ -48,6 +50,10 @@ namespace AnagramSolver.WebApp
             //services.AddSingleton<IWordRepository>( x= > new SQLWordRepository(Configuration["SqldatabaseString"]));
             //services.AddTransient<ICacheRepository>(x=> new AnagramCache(Configuration.GetConnectionString("SqldatabaseString")));
             //services.AddTransient<IUserLogRepository>(x=> new SQLUserLogRepository("SqldatabaseString"));
+
+            services.AddScoped<IAnagramSolverService, AnagramSolverService>();
+            services.AddScoped<IUserLogService, UserLogService>();
+            services.AddScoped<ICacheService, CacheService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

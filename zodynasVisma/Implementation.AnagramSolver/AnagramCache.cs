@@ -10,9 +10,10 @@ using System.IO;
 using System.Linq;
 using AnagramSolver.Models;
 
+
 namespace AnagramSolver.BusinessLogic
 {
-    public class AnagramCache : ICacheRepository
+    public class AnagramCache
     {
         private readonly string _connectionString;
         public AnagramCache(string connectionString)

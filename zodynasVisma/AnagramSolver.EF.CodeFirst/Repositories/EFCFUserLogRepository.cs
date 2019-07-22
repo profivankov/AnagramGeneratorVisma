@@ -24,7 +24,7 @@ namespace AnagramSolver.EF.CodeFirst.Repositories
                     SearchTime = x.SearchTime,
                     SearchedWord = _dbContext.SearchedWords.Where( y => y.SearchedWordId == x.SearchedWordID ).Select(y => y.SearchedWord).First(),
                     AnagramWord = _dbContext.CachedWords.Where(y => y.SearchedWordID == x.SearchedWordID).Select(y => y.Words.Word).ToList()
-                }).ToList(); //where to enter string userIP?
+                }).ToList(); 
             return userLogList;
         }
 
