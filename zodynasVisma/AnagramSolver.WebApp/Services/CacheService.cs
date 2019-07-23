@@ -10,7 +10,6 @@ namespace AnagramSolver.WebApp.Services
 {
     public class CacheService : ICacheService
     {
-        private readonly IWordRepository _wordRepository;
         private ICacheRepository _anagramCache;
         private IAnagramSolverService _anagramSolverService;
 

@@ -1,12 +1,6 @@
-﻿using AnagramSolver.Contracts;
-using AnagramSolver.EF.CodeFirst.Contracts;
+﻿using AnagramSolver.EF.CodeFirst.Contracts;
 using AnagramSolver.EF.CodeFirst.Entities;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace AnagramSolver.EF.CodeFirst.Repositories
 {

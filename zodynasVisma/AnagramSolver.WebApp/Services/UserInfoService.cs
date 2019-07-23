@@ -3,25 +3,22 @@ using AnagramSolver.EF.CodeFirst.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AnagramSolver.WebApp.Services
 {
     public class UserInfoService : IUserInfoService
     {
         private IUserInfoRepository _userInfoRepository;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private IHttpManagerService _httpManagerService;
         public IConfiguration Configuration { get; }
         private string _userIP;
         
 
-        public UserInfoService(IHttpContextAccessor httpContextAccessor, IConfiguration configuration, IUserInfoRepository userInfoRepository)
+        public UserInfoService(IHttpManagerService httpManagerService, IConfiguration configuration, IUserInfoRepository userInfoRepository)
         {
             _userInfoRepository = userInfoRepository;
-            _httpContextAccessor = httpContextAccessor;
-            _userIP = _httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
+            _httpManagerService = httpManagerService;
+            _userIP = _httpManagerService.GetIP();
             Configuration = configuration;
         }
 

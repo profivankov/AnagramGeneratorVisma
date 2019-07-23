@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using AnagramSolver.Contracts;
-using AnagramSolver.EF.CodeFirst;
 using AnagramSolver.EF.CodeFirst.Contracts;
 using AnagramSolver.EF.CodeFirst.Entities;
-using AnagramSolver.Models;
 
 namespace AnagramSolver.EF.CodeFirst.Repositories
 {
@@ -31,7 +26,7 @@ namespace AnagramSolver.EF.CodeFirst.Repositories
                 return searchedWords.SearchedWordId;
         }
 
-        public int GetSearchedWordID(string word) //either gets or adds searched word ID
+        public int GetSearchedWordID(string word)
         {
             var wordID = _dbContext.SearchedWords.Where(x => x.SearchedWord == word).Select(x => x.SearchedWordId).FirstOrDefault(); // gets searched word ID
             return wordID;

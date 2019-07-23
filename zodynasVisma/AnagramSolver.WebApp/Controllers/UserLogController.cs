@@ -1,5 +1,4 @@
-﻿using AnagramSolver.Contracts;
-using AnagramSolver.Models;
+﻿using AnagramSolver.EF.CodeFirst.Contracts;
 using AnagramSolver.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -8,16 +7,16 @@ namespace AnagramSolver.WebApp.Controllers
 {
     public class UserLogController : Controller
     {
-        private IUserLogRepository userLogRepository;
+        private IUserLogService _userLogService;
 
-        public UserLogController(IUserLogRepository userLogRepository)
+        public UserLogController(IUserLogService userLogService)
         {
-            this.userLogRepository = userLogRepository;
+            _userLogService = userLogService;
         }
         [Route("UserLog/Index/")]
         public IActionResult Index()
         {
-            var userLogList = userLogRepository.GetUserLog(HttpContext.Connection.RemoteIpAddress.ToString());
+            var userLogList = _userLogService.GetUserLog(HttpContext.Connection.RemoteIpAddress.ToString());
 
             List<UserLogViewModel> userLogViewList = new List<UserLogViewModel>();
             foreach (var userLog in userLogList)

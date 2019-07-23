@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using AnagramSolver.BusinessLogic;
-using AnagramSolver.Contracts;
 using AnagramSolver.EF.DatabaseFirst.Repositories;
 using AnagramSolver.EF.DatabaseFirst.Entities;
 using AnagramSolver.EF.CodeFirst;
@@ -41,7 +40,6 @@ namespace AnagramSolver.WebApp
             });
 
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>(); // for cookies
-            services.AddTransient<IAnagramSolver, BusinessLogic.AnagramSolver>();
             services.AddScoped<IWordRepository, EFCFWordRepository>();
             services.AddTransient<ICacheRepository, EFCFCacheRepository>();
             services.AddTransient<IUserLogRepository, EFCFUserLogRepository>();
@@ -55,6 +53,8 @@ namespace AnagramSolver.WebApp
             services.AddScoped<IUserLogService, UserLogService>();
             services.AddScoped<ICacheService, CacheService>();
             services.AddScoped<IUserInfoService, UserInfoService>();
+            services.AddScoped<IWordService, WordService>();
+            services.AddScoped<IHttpManagerService, HttpManagerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using AnagramSolver.BusinessLogic;
-using AnagramSolver.Contracts;
+﻿using System.Collections.Generic;
 using AnagramSolver.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.IO;
-using System.Linq;
+using AnagramSolver.EF.CodeFirst.Contracts;
 
 namespace AnagramSolver.WebApp.Controllers
 {
     public class SearchController : Controller
     {
-        private IWordRepository _wordRepository;
+        private IWordService _wordService;
 
-        public SearchController(IWordRepository wordRepository)
+        public SearchController(IWordService wordService)
         {
-            _wordRepository = wordRepository;
+            _wordService = wordService;
         }
 
         public IActionResult Index()
@@ -29,7 +25,7 @@ namespace AnagramSolver.WebApp.Controllers
             {
                 return Index();
             }
-            var resultList = new SearchViewModel { WordList = _wordRepository.SearchRepository(request.Input) };
+            var resultList = new SearchViewModel { WordList = _wordService.SearchRepository(request.Input) };
             return View(resultList);
         }
     }

@@ -13,13 +13,13 @@ namespace AnagramSolver.WebApp.Services
 {
     public class AnagramSolverService : IAnagramSolverService
     {
-        private readonly IWordRepository _wordRepository;
+        private IWordService _wordService;
         public List<string> finalList;
         public int _maxResultAmount;
 
-        public AnagramSolverService(IWordRepository wordRepository)
+        public AnagramSolverService(IWordService wordService)
         {
-            _wordRepository = wordRepository;
+            _wordService = wordService;
             finalList = new List<string>();
         }
 
@@ -27,7 +27,7 @@ namespace AnagramSolver.WebApp.Services
         {
             var counter = 0;
             _maxResultAmount = MaxResultAmount();
-            var wordList = _wordRepository.GetDictionary(null);
+            var wordList = _wordService.GetDictionary(null);
 
 
             var currentWord = string.Concat(input.ToLower().OrderBy(c => c));

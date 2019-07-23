@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AnagramSolver.Contracts;
-using AnagramSolver.EF.CodeFirst;
+using AnagramSolver.EF.CodeFirst.Contracts;
 using AnagramSolver.EF.CodeFirst.Entities;
 using AnagramSolver.Models;
 
@@ -28,12 +27,8 @@ namespace AnagramSolver.EF.CodeFirst.Repositories
             return userLogList;
         }
 
-        public void StoreUserInfo(string userIP, string input)
+        public void AddUserLog(UserLog userLog)
         {
-            var userLog = new UserLog();
-            userLog.UserIP = userIP;
-            userLog.SearchTime = DateTime.Now;
-            userLog.SearchedWordID = _dbContext.SearchedWords.Where(x => x.SearchedWord == input).Select(x => x.SearchedWordId).FirstOrDefault(); ;
             _dbContext.UserLog.Add(userLog);
             _dbContext.SaveChanges();
         }
