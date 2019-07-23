@@ -54,6 +54,7 @@ namespace AnagramSolver.WebApp
             services.AddScoped<IAnagramSolverService, AnagramSolverService>();
             services.AddScoped<IUserLogService, UserLogService>();
             services.AddScoped<ICacheService, CacheService>();
+            services.AddScoped<IUserInfoService, UserInfoService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

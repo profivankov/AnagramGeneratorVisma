@@ -1,5 +1,6 @@
 ﻿using AnagramSolver.BusinessLogic;
 using AnagramSolver.Contracts;
+using AnagramSolver.EF.CodeFirst.Contracts;
 using AnagramSolver.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
@@ -10,12 +11,12 @@ namespace AnagramSolver.WebApp.Controllers
     public class DictionaryController : Controller
     {
         private IWordRepository _wordRepository;
-        private IUserInfoRepository _userInfoRepository;
+        private IUserInfoService _userInfoService;
 
-        public DictionaryController(IWordRepository wordRepository, IUserInfoRepository userInfoRepository)
+        public DictionaryController(IWordRepository wordRepository, IUserInfoService userInfoService)
         {
             _wordRepository = wordRepository;
-            _userInfoRepository = userInfoRepository;
+            _userInfoService = userInfoService;
         }
 
         public IActionResult Index(int pageNum)
@@ -48,7 +49,7 @@ namespace AnagramSolver.WebApp.Controllers
                 return Empty();
             }
             Response.Cookies.Append("lastAddedWord", request.Input);
-            _userInfoRepository.AddRemoveSearches((_wordRepository.AddWord(request.Input)));
+            _userInfoService.AddRemoveSearches((_wordRepository.AddWord(request.Input)));
             return View(request);
         }
 
@@ -59,7 +60,7 @@ namespace AnagramSolver.WebApp.Controllers
                 return Empty();
             }
             Response.Cookies.Append("lastRemovedWord", request.Input);
-            _userInfoRepository.AddRemoveSearches((_wordRepository.RemoveWord(request.Input)));
+            _userInfoService.AddRemoveSearches((_wordRepository.RemoveWord(request.Input)));
             return View(request);
         }
 
@@ -70,7 +71,7 @@ namespace AnagramSolver.WebApp.Controllers
                 return Empty();
             }
             Response.Cookies.Append("lastEditedWord", request.Input);
-            _userInfoRepository.AddRemoveSearches(_wordRepository.EditWord(request.Input, request.EditWord));
+            _userInfoService.AddRemoveSearches(_wordRepository.EditWord(request.Input, request.EditWord));
 
             return View(request);
         }

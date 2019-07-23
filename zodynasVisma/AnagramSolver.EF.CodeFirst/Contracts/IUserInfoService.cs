@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AnagramSolver.Contracts
+namespace AnagramSolver.EF.CodeFirst.Contracts
 {
-    public interface IUserInfoRepository
+    public interface IUserInfoService
     {
         int GetUserInfo();
         void NewUser();
-        int AllowedSearches();
         void UpdateSearchAmount();
         void AddRemoveSearches(bool AddRemove);
     }

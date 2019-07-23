@@ -14,16 +14,16 @@ namespace AnagramSolver.WebApp.Controllers
 {
     public class AnagramSolverController : Controller
     {
-        
-        private IUserInfoRepository userInfoRepository;
+
+        private IUserInfoService _userInfoService;
         private ICacheService _cacheService;
         private IUserLogService _userLogService;
 
-        public AnagramSolverController(ICacheService cacheService, IUserInfoRepository userInfoRepository, IUserLogService userLogService)
+        public AnagramSolverController(ICacheService cacheService, IUserInfoService userInfoService, IUserLogService userLogService)
         {
             _cacheService = cacheService;
             _userLogService = userLogService;
-            this.userInfoRepository = userInfoRepository;
+            _userInfoService = userInfoService;
         }
 
         public IActionResult Index(int searchesLeft)
@@ -34,7 +34,7 @@ namespace AnagramSolver.WebApp.Controllers
         [Route("AnagramSolver/Index/")]
         public IActionResult Index(AnagramViewModel request)
         {
-            var searchestLeft = userInfoRepository.GetUserInfo(); // get amount of searches left or create new user
+            var searchestLeft = _userInfoService.GetUserInfo(); // get amount of searches left or create new user
             if (request.Input == null || request.Input.Length == 0 || searchestLeft <= 0)
             {
                 return Index(searchestLeft);
@@ -42,8 +42,8 @@ namespace AnagramSolver.WebApp.Controllers
             Response.Cookies.Append("searchedWord", request.Input); // add cookie
 
             var resultList = new AnagramViewModel { WordList = _cacheService.GetMultiple(request.Input) }; //get anagrams
-            userInfoRepository.UpdateSearchAmount(); // add +1 search
-            resultList.searchesLeft = userInfoRepository.GetUserInfo(); // get updated amount for display in view
+            _userInfoService.UpdateSearchAmount(); // add +1 search
+            resultList.searchesLeft = _userInfoService.GetUserInfo(); // get updated amount for display in view
 
             _userLogService.AddToUserLog(HttpContext.Connection.RemoteIpAddress.ToString(), request.Input);
             return View(resultList);
